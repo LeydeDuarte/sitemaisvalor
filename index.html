@@ -72,6 +72,7 @@
   header{position:sticky; top:0; z-index:60; background:rgba(247,249,252,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
   nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:24px;}
   .logo img{height:44px; width:auto; display:block;}
+  .logo-mark{display:none;}
   .nav-links{display:flex; align-items:center; gap:28px; font-size:14.5px; font-weight:500; color:var(--ink-soft); white-space:nowrap;}
   .nav-links a:hover{color:var(--navy-900);}
   .nav-links .divider{width:1px; height:16px; background:var(--line);}
@@ -286,6 +287,8 @@
   @media (max-width:860px){
     .nav-links{display:none;}
     .menu-btn{display:block;}
+    .logo-full{display:none;}
+    .logo-mark{display:block; height:38px;}
     .hero-grid{grid-template-columns:1fr;}
     .hero h1{font-size:32px;}
     .hero-mark{display:none;}
@@ -351,7 +354,8 @@
   <div class="wrap">
     <nav>
       <a href="#" class="logo">
-        <img src="mais-valor-horizontal.png" alt="Mais Valor Capital">
+        <img src="mais-valor-horizontal.png" alt="Mais Valor Capital" class="logo-full">
+        <img src="logo-mais-valor.png" alt="Mais Valor Capital" class="logo-mark">
       </a>
       <div class="nav-links">
         <a href="#simulador-financiamento">Financiamento</a>
