@@ -3,22 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mais Valor Capital — Crédito Imobiliário</title>
-<meta name="description" content="Financiamento imobiliário e crédito com garantia de imóvel (CGI) em Goiânia, com Leyde Duarte e mais de 15 instituições parceiras.">
+<title>Mais Valor Capital — Financiamento Imobiliário e Crédito com Garantia de Imóvel</title>
+<meta name="description" content="Financiamento imobiliário e crédito com garantia de imóvel (CGI) em Goiânia, com Leyde Duarte e mais de 15 instituições parceiras. Simuladores separados para cada operação.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --teal-deep:#0A2E52;
-    --teal:#145DA0;
-    --green:#2E9BD6;
-    --green-light:#A9D8F0;
-    --ink:#0E1B2A;
-    --ink-soft:#44607A;
-    --paper:#F5F8FB;
-    --paper-2:#E9F1F8;
-    --line:#D6E3EE;
+    --navy-950:#081326;
+    --navy-900:#0D2249;
+    --navy-800:#123467;
+    --navy-700:#1B4DA6;
+    --blue-500:#2F6FED;
+    --blue-100:#E4ECFD;
+    --silver-300:#C7D2DE;
+    --silver-100:#EEF2F7;
+    --ink:#0B1526;
+    --ink-soft:#54627A;
+    --ink-faint:#8493A8;
+    --paper:#F7F9FC;
+    --paper-2:#EEF2F8;
+    --line:#E1E7F0;
     --white:#FFFFFF;
+    --ok:#1B8F5A;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -26,182 +33,243 @@
     font-family:'Inter', sans-serif;
     color:var(--ink);
     background:var(--paper);
-    line-height:1.55;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3,.display{
-    font-family:'Sora', sans-serif;
+  h1,h2,h3,h4,.display{
+    font-family:'Poppins', sans-serif;
     color:var(--ink);
-    letter-spacing:-0.015em;
+    letter-spacing:-0.01em;
   }
   a{color:inherit; text-decoration:none;}
   img,svg{display:block; max-width:100%;}
+  button{font-family:inherit;}
   .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
   .grad-text{
-    background:linear-gradient(100deg, var(--teal-deep) 0%, var(--teal) 45%, var(--green) 100%);
+    background:linear-gradient(100deg, var(--navy-800) 0%, var(--blue-500) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
+  ::selection{background:var(--blue-100); color:var(--navy-900);}
+  :focus-visible{outline:2px solid var(--blue-500); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
 
   /* NAV */
-  header{position:sticky; top:0; z-index:50; background:rgba(246,248,244,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
-  nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
-  .logo{display:flex; flex-direction:column; line-height:0.95;}
-  .logo .mv{font-family:'Sora'; font-weight:800; font-size:20px; letter-spacing:0.01em;}
-  .logo .cap{font-family:'Sora'; font-weight:400; font-size:12px; color:var(--ink-soft); letter-spacing:0.28em; margin-top:3px;}
-  .nav-links{display:flex; gap:32px; font-size:14.5px; font-weight:500; color:var(--ink-soft);}
-  .nav-links a:hover{color:var(--teal-deep);}
-  .nav-cta{padding:11px 22px; background:var(--ink); color:var(--white); border-radius:100px; font-size:14px; font-weight:600;}
-  .nav-cta:hover{background:var(--teal-deep);}
-  .menu-btn{display:none; font-size:26px; background:none; border:none; cursor:pointer;}
+  header{position:sticky; top:0; z-index:60; background:rgba(247,249,252,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:24px;}
+  .logo img{height:44px; width:auto; display:block;}
+  .nav-links{display:flex; align-items:center; gap:28px; font-size:14.5px; font-weight:500; color:var(--ink-soft); white-space:nowrap;}
+  .nav-links a:hover{color:var(--navy-900);}
+  .nav-links .divider{width:1px; height:16px; background:var(--line);}
+  .nav-cta{padding:11px 22px; background:var(--navy-900); color:var(--white); border-radius:10px; font-size:14px; font-weight:600; white-space:nowrap;}
+  .nav-cta:hover{background:var(--navy-800);}
+  .menu-btn{display:none; font-size:24px; background:none; border:none; cursor:pointer; color:var(--ink);}
 
   /* HERO */
-  .hero{padding:88px 0 56px;}
-  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:center;}
-  .eyebrow{font-size:14px; font-weight:600; color:var(--teal-deep); margin-bottom:18px;}
-  .hero h1{font-size:48px; font-weight:700; line-height:1.1; margin-bottom:22px;}
-  .hero p{font-size:17.5px; color:var(--ink-soft); max-width:480px; margin-bottom:32px;}
-  .hero-actions{display:flex; gap:16px; align-items:center; flex-wrap:wrap;}
-  .btn-primary{padding:15px 28px; background:linear-gradient(100deg, var(--teal-deep), var(--teal) 60%, var(--green)); color:var(--white); font-weight:600; font-size:15px; border-radius:100px; box-shadow:0 10px 24px -8px rgba(14,124,110,0.45); border:none; cursor:pointer;}
-  .btn-secondary{font-weight:600; font-size:15px; color:var(--ink); padding:15px 6px; border-bottom:2px solid var(--ink);}
-  .hero-stats{display:grid; grid-template-columns:1fr 1fr; gap:18px; background:var(--white); border:1px solid var(--line); border-radius:20px; padding:26px;}
-  .hero-stats .hs{padding:6px 0;}
-  .hero-stats .hs .n{font-family:'Sora'; font-weight:700; font-size:22px;}
-  .hero-stats .hs .l{font-size:12.5px; color:var(--ink-soft); margin-top:3px;}
+  .hero{padding:76px 0 64px; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; position:relative; z-index:1;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--navy-700); margin-bottom:20px;}
+  .eyebrow::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--blue-500);}
+  .hero h1{font-size:46px; font-weight:700; line-height:1.14; margin-bottom:22px; max-width:600px;}
+  .hero p{font-size:17px; color:var(--ink-soft); max-width:480px; margin-bottom:30px;}
+  .hero-actions{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:34px;}
+  .btn-primary{padding:15px 26px; background:var(--navy-900); color:var(--white); font-weight:600; font-size:14.5px; border-radius:10px; border:none; cursor:pointer; box-shadow:0 12px 24px -10px rgba(13,34,73,0.5);}
+  .btn-primary:hover{background:var(--navy-800);}
+  .btn-outline{padding:14px 24px; font-weight:600; font-size:14.5px; color:var(--navy-900); border:1.5px solid var(--line); border-radius:10px; background:var(--white);}
+  .btn-outline:hover{border-color:var(--navy-700); color:var(--navy-700);}
+  .hero-modalities{display:flex; gap:10px; flex-wrap:wrap;}
+  .mod-pill{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--ink-soft); border:1px solid var(--line); background:var(--white); padding:8px 14px; border-radius:100px;}
+  .mod-pill .dot{width:8px; height:8px; border-radius:50%;}
+  .mod-pill.fin .dot{background:var(--navy-700);}
+  .mod-pill.cgi .dot{background:var(--silver-300); border:1.5px solid var(--ink-faint);}
 
-  /* BENEFITS */
-  .benefits-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:20px; overflow:hidden;}
-  .benefit{background:var(--white); padding:30px 26px;}
-  .benefit .b-num{font-family:'Sora'; font-weight:700; font-size:26px; margin-bottom:8px;}
-  .benefit .b-lbl{font-size:14px; color:var(--ink-soft); max-width:190px;}
+  .hero-visual{position:relative;}
+  .hero-mark{position:absolute; top:-60px; right:-40px; width:340px; opacity:0.9; z-index:0; pointer-events:none;}
+  .hero-stats{position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:0 24px 48px -28px rgba(13,34,73,0.28);}
+  .hero-stats .hs{background:var(--white); padding:24px 22px;}
+  .hero-stats .hs .n{font-family:'Poppins'; font-weight:700; font-size:23px; color:var(--navy-900);}
+  .hero-stats .hs .l{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
 
-  /* COMPARE TABLE */
-  .compare{background:var(--white); border:1px solid var(--line); border-radius:20px; overflow:hidden;}
-  .compare table{width:100%; border-collapse:collapse;}
-  .compare th, .compare td{padding:16px 22px; text-align:left; font-size:14.5px; border-bottom:1px solid var(--line);}
-  .compare thead th{font-family:'Sora'; font-size:13px; font-weight:700; color:var(--ink-soft); text-transform:none; background:var(--paper-2);}
-  .compare thead th.hl{color:var(--teal-deep);}
-  .compare tbody td.hl{font-weight:700; color:var(--teal-deep); background:#EAF4FB;}
-  .compare tbody tr:last-child td{border-bottom:none;}
+  /* INTRO VIDEO */
+  .intro-video{padding:0 0 64px;}
+  .video-frame{max-width:820px; margin:0 auto; border-radius:20px; overflow:hidden; aspect-ratio:16/9; border:1px solid var(--line); background:var(--navy-950);}
+  .video-frame iframe{width:100%; height:100%; border:0; display:block;}
+  .video-caption{text-align:center; margin-top:18px;}
+  .video-caption h2{font-size:24px; margin-bottom:6px;}
+  .video-caption p{color:var(--ink-soft); font-size:15px;}
 
-  /* PARTNERS STRIP */
-  .partners{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--white); padding:18px 0; overflow:hidden;}
-  .partners-inner{display:flex; align-items:center; gap:28px;}
-  .partners-label{font-size:12px; font-weight:600; color:var(--ink-soft); white-space:nowrap; padding-right:24px; border-right:1px solid var(--line);}
-  .partners-track{display:flex; gap:14px; overflow-x:auto; scrollbar-width:none;}
-  .partners-track::-webkit-scrollbar{display:none;}
-  .chip{background:var(--paper); border:1px solid var(--line); border-radius:100px; padding:8px 16px; font-size:13px; font-weight:600; color:var(--ink-soft); white-space:nowrap;}
+  /* EXPLAINER */
+  .explainer{padding:0 0 72px;}
+  .explainer-head{max-width:640px; margin-bottom:36px;}
+  .explainer-head h2{font-size:28px; margin-bottom:10px;}
+  .explainer-head p{color:var(--ink-soft); font-size:15.5px;}
+  .explainer-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .exp-card{border-radius:18px; padding:30px; border-top:4px solid; background:var(--white); border-left:1px solid var(--line); border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .exp-card.fin{border-top-color:var(--navy-700);}
+  .exp-card.cgi{border-top-color:var(--silver-300); position:relative;}
+  .exp-tag{display:inline-block; font-size:12px; font-weight:700; padding:5px 12px; border-radius:100px; margin-bottom:14px;}
+  .exp-card.fin .exp-tag{background:var(--blue-100); color:var(--navy-700);}
+  .exp-card.cgi .exp-tag{background:var(--silver-100); color:var(--ink-soft);}
+  .exp-card h3{font-size:19px; margin-bottom:10px;}
+  .exp-card p{color:var(--ink-soft); font-size:14.5px; margin-bottom:16px;}
+  .exp-list{list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:20px;}
+  .exp-list li{font-size:13.5px; color:var(--ink-soft); padding-left:18px; position:relative;}
+  .exp-list li::before{content:''; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%;}
+  .exp-card.fin .exp-list li::before{background:var(--navy-700);}
+  .exp-card.cgi .exp-list li::before{background:var(--ink-faint);}
+  .exp-link{font-size:13.5px; font-weight:600;}
+  .exp-card.fin .exp-link{color:var(--navy-700);}
+  .exp-card.cgi .exp-link{color:var(--ink-soft);}
 
-  .section{padding:88px 0;}
-  .section-head{display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-bottom:52px; align-items:end;}
-  .section-head h2{font-size:32px; font-weight:700; line-height:1.2;}
-  .section-head p{color:var(--ink-soft); font-size:16px;}
+  .section{padding:80px 0;}
+  .section-head{display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-bottom:48px; align-items:end;}
+  .section-head h2{font-size:30px; font-weight:700; line-height:1.2;}
+  .section-head p{color:var(--ink-soft); font-size:15.5px;}
 
-  /* SIMULATOR */
-  .simulator{background:var(--white); border:1px solid var(--line); border-radius:24px; overflow:hidden;}
-  .sim-head{background:linear-gradient(100deg, var(--teal-deep), var(--teal)); padding:26px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
-  .sim-head h3{color:var(--white); font-size:19px; font-weight:600;}
-  .sim-tabs{display:inline-flex; background:rgba(255,255,255,0.15); padding:4px; border-radius:100px;}
-  .sim-tab{background:none; border:none; color:#D6E8F5; font-size:13.5px; font-weight:600; padding:9px 18px; border-radius:100px; cursor:pointer;}
-  .sim-tab.active{background:var(--white); color:var(--teal-deep);}
-  .sim-body{display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; padding:36px 32px;}
+  /* SIMULATOR MODULES */
+  .sim-module{background:var(--white); border-radius:22px; overflow:hidden; border:1px solid var(--line); margin-bottom:28px;}
+  .sim-module.fin{border-top:5px solid var(--navy-700);}
+  .sim-module.cgi{border-top:5px solid var(--silver-300);}
+  .sim-module-head{padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; border-bottom:1px solid var(--line);}
+  .sim-module.fin .sim-module-head{background:var(--navy-900);}
+  .sim-module.cgi .sim-module-head{background:var(--navy-950);}
+  .sim-module-head h3{color:var(--white); font-size:19px; font-weight:600;}
+  .sim-module-head .sub{color:#AEC0DD; font-size:13px; margin-top:3px;}
+  .sim-icon-tag{font-size:11.5px; font-weight:700; padding:6px 13px; border-radius:100px; color:var(--white);}
+  .sim-module.fin .sim-icon-tag{background:var(--blue-500);}
+  .sim-module.cgi .sim-icon-tag{background:rgba(255,255,255,0.16); color:var(--silver-300);}
+  .sim-body{display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; padding:34px 32px;}
   .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   .field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
   .field label{font-size:12.5px; font-weight:600; color:var(--ink-soft);}
-  .field .hint{font-weight:400; color:#6E8AA0;}
+  .field .hint{font-weight:400; color:var(--ink-faint);}
   .field input, .field select{padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-family:'Inter'; font-size:14.5px; font-weight:600; color:var(--ink); background:var(--paper);}
-  .field input:focus, .field select:focus{outline:2px solid var(--teal); outline-offset:1px;}
+  .field input:focus, .field select:focus{outline:2px solid var(--blue-500); outline-offset:1px;}
   .rate-note{background:var(--paper-2); border:1px dashed var(--line); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--ink-soft); margin-bottom:18px;}
-  .btn-block{width:100%; padding:14px; border:none; border-radius:10px; background:var(--ink); color:var(--white); font-weight:600; font-size:14.5px; cursor:pointer;}
-  .btn-block:hover{background:var(--teal-deep);}
-  .results{border:1px solid var(--line); border-top:3px solid var(--green); border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:space-between;}
+  .btn-block{width:100%; padding:14px; border:none; border-radius:10px; color:var(--white); font-weight:600; font-size:14.5px; cursor:pointer;}
+  .sim-module.fin .btn-block{background:var(--navy-900);}
+  .sim-module.fin .btn-block:hover{background:var(--navy-800);}
+  .sim-module.cgi .btn-block{background:var(--ink);}
+  .sim-module.cgi .btn-block:hover{background:var(--navy-950);}
+  .results{border:1px solid var(--line); border-radius:16px; padding:22px; display:flex; flex-direction:column; justify-content:space-between; background:var(--paper);}
   .results-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;}
-  .res-card{border:1px solid var(--line); border-radius:12px; padding:14px;}
-  .res-card.highlight{border:1.5px solid var(--green); background:linear-gradient(180deg, #EAF4FC, var(--white));}
-  .res-card .lbl{font-size:11.5px; font-weight:600; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.03em;}
-  .res-card .val{font-family:'Sora'; font-weight:700; font-size:20px; margin-top:4px;}
+  .res-card{border:1px solid var(--line); border-radius:12px; padding:14px; background:var(--white);}
+  .res-card.highlight{border-width:1.5px;}
+  .sim-module.fin .res-card.highlight{border-color:var(--navy-700); background:linear-gradient(180deg, var(--blue-100), var(--white));}
+  .sim-module.cgi .res-card.highlight{border-color:var(--ink-faint); background:linear-gradient(180deg, var(--silver-100), var(--white));}
+  .res-card .lbl{font-size:11.5px; font-weight:600; color:var(--ink-soft);}
+  .res-card .val{font-family:'Poppins'; font-weight:700; font-size:19px; margin-top:4px;}
   .res-card .sub{font-size:12px; color:var(--ink-soft); margin-top:3px;}
-  .wa-btn{display:block; text-align:center; padding:14px; border-radius:10px; background:linear-gradient(100deg, var(--teal-deep), var(--green)); color:var(--white); font-weight:600; font-size:14.5px;}
-  .disclaimer{font-size:12.5px; color:#6E8AA0; padding:18px 32px 28px;}
+  .wa-btn{display:block; text-align:center; padding:14px; border-radius:10px; color:var(--white); font-weight:600; font-size:14.5px;}
+  .sim-module.fin .wa-btn{background:var(--navy-700);}
+  .sim-module.cgi .wa-btn{background:var(--ink-soft);}
+  .disclaimer{font-size:12.5px; color:var(--ink-faint); padding:0 32px 26px;}
 
   /* FAQ */
-  .faq{border-top:1px solid var(--line);}
+  .faq{border-top:1px solid var(--line); margin-top:8px;}
   .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
   .faq-item summary{cursor:pointer; font-weight:600; font-size:15.5px; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px;}
   .faq-item summary::-webkit-details-marker{display:none;}
-  .faq-item summary::after{content:'+'; font-size:20px; color:var(--teal-deep); font-weight:400;}
+  .faq-item summary::after{content:'+'; font-size:20px; color:var(--navy-700); font-weight:400;}
   .faq-item[open] summary::after{content:'–';}
   .faq-item p{margin-top:12px; color:var(--ink-soft); font-size:14.5px; max-width:680px;}
 
+  /* PARTNERS */
+  .partners{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--white); padding:18px 0; overflow:hidden;}
+  .partners-inner{display:flex; align-items:center; gap:28px;}
+  .partners-label{font-size:12.5px; font-weight:600; color:var(--ink-soft); white-space:nowrap; padding-right:24px; border-right:1px solid var(--line);}
+  .partners-track{display:flex; gap:12px; overflow-x:auto; scrollbar-width:none;}
+  .partners-track::-webkit-scrollbar{display:none;}
+  .chip{background:var(--paper); border:1px solid var(--line); border-radius:100px; padding:8px 16px; font-size:13px; font-weight:600; color:var(--ink-soft); white-space:nowrap;}
+
+  /* BENEFITS (CGI) */
+  .benefits-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden;}
+  .benefit{background:var(--white); padding:28px 24px;}
+  .benefit .b-num{font-family:'Poppins'; font-weight:700; font-size:24px; margin-bottom:8px; color:var(--navy-900);}
+  .benefit .b-lbl{font-size:13.5px; color:var(--ink-soft); max-width:190px;}
+
+  /* COMPARE TABLE */
+  .compare{background:var(--white); border:1px solid var(--line); border-radius:18px; overflow:hidden;}
+  .compare table{width:100%; border-collapse:collapse;}
+  .compare th, .compare td{padding:16px 22px; text-align:left; font-size:14.5px; border-bottom:1px solid var(--line);}
+  .compare thead th{font-family:'Poppins'; font-size:13px; font-weight:600; color:var(--ink-soft); background:var(--paper-2);}
+  .compare thead th.hl{color:var(--navy-700);}
+  .compare tbody td.hl{font-weight:700; color:var(--navy-700); background:var(--blue-100);}
+  .compare tbody tr:last-child td{border-bottom:none;}
+
   /* AUDIENCE */
   .audience-list{display:flex; flex-direction:column;}
-  .audience-row{display:grid; grid-template-columns:280px 1fr; gap:40px; padding:30px 0; border-top:1px solid var(--line); align-items:baseline;}
+  .audience-row{display:grid; grid-template-columns:280px 1fr; gap:40px; padding:28px 0; border-top:1px solid var(--line); align-items:baseline;}
   .audience-list .audience-row:last-child{border-bottom:1px solid var(--line);}
-  .audience-row h3{font-size:21px; font-weight:600;}
-  .audience-row p{color:var(--ink-soft); font-size:15px; max-width:560px;}
+  .audience-row h3{font-size:20px; font-weight:600;}
+  .audience-row p{color:var(--ink-soft); font-size:14.5px; max-width:560px;}
 
   /* PROCESS */
-  .process{background:var(--ink); color:var(--white); border-radius:28px; padding:60px;}
+  .process{background:var(--navy-950); color:var(--white); border-radius:26px; padding:56px;}
   .process .section-head h2, .process .section-head p{color:var(--white);}
-  .process .section-head p{color:#A9BFD1;}
-  .process-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,0.14); border-radius:16px; overflow:hidden;}
-  .step{background:var(--ink); padding:34px 28px;}
-  .step .step-num{font-family:'Sora'; font-weight:700; font-size:15px; color:var(--green-light); margin-bottom:18px;}
-  .step h3{font-size:18px; font-weight:600; margin-bottom:8px; color:var(--white);}
-  .step p{font-size:14px; color:#A9BFD1;}
+  .process .section-head p{color:#9FB3CC;}
+  .process-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,0.12); border-radius:16px; overflow:hidden;}
+  .step{background:var(--navy-950); padding:32px 26px;}
+  .step .step-num{font-family:'Poppins'; font-weight:700; font-size:14px; color:var(--blue-500); margin-bottom:16px;}
+  .step h3{font-size:17.5px; font-weight:600; margin-bottom:8px; color:var(--white);}
+  .step p{font-size:13.5px; color:#9FB3CC;}
 
   /* ABOUT */
-  .about{display:grid; grid-template-columns:0.9fr 1.4fr; gap:48px; align-items:center; background:var(--white); border:1px solid var(--line); border-radius:24px; padding:44px;}
-  .about-photo{width:100%; aspect-ratio:1/1; border-radius:18px; object-fit:cover; background:var(--paper-2);}
-  .about h3{font-size:24px; font-weight:700;}
-  .about .role{font-size:13.5px; font-weight:600; color:var(--teal-deep); margin:6px 0 16px;}
-  .about p{color:var(--ink-soft); font-size:15px; max-width:560px; margin-bottom:20px;}
+  .about{display:grid; grid-template-columns:0.85fr 1.4fr; gap:44px; align-items:center; background:var(--white); border:1px solid var(--line); border-radius:22px; padding:42px;}
+  .about-photo{width:100%; aspect-ratio:1/1; border-radius:16px; object-fit:cover; background:var(--paper-2);}
+  .about h3{font-size:23px; font-weight:700;}
+  .about .role{font-size:13.5px; font-weight:600; color:var(--navy-700); margin:6px 0 16px;}
+  .about p{color:var(--ink-soft); font-size:14.5px; max-width:560px; margin-bottom:20px;}
   .eco-tags{display:flex; flex-wrap:wrap; gap:8px;}
   .eco-tag{font-size:12.5px; font-weight:600; padding:7px 14px; border-radius:100px; border:1px solid var(--line); color:var(--ink-soft);}
-  .eco-tag.main{background:var(--paper-2); color:var(--teal-deep); border-color:transparent;}
+  .eco-tag.main{background:var(--blue-100); color:var(--navy-700); border-color:transparent;}
 
   /* TESTIMONIALS */
   .testimonial-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
   .t-card{background:var(--white); border:1px solid var(--line); border-radius:16px; overflow:hidden;}
-  .t-video{aspect-ratio:16/9; background:var(--paper-2); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); font-size:13px;}
+  .t-video{aspect-ratio:16/9; background:var(--navy-950); display:flex; align-items:center; justify-content:center;}
+  .t-video iframe{width:100%; height:100%; border:0;}
+  .t-video .ph{color:#9FB3CC; font-size:13px; text-align:center; padding:0 20px;}
   .t-info{padding:14px 16px;}
   .t-info .name{font-weight:600; font-size:14.5px; display:block;}
   .t-info .op{font-size:12.5px; color:var(--ink-soft);}
 
   /* CTA */
-  .cta{background:var(--paper-2); border-radius:28px; padding:64px; display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px; align-items:center;}
-  .cta h2{font-size:30px; font-weight:700; line-height:1.2; margin-bottom:14px;}
-  .cta p{color:var(--ink-soft); font-size:15.5px; max-width:440px;}
-  .cta-form{background:var(--white); border-radius:18px; padding:26px; border:1px solid var(--line);}
+  .cta{background:var(--paper-2); border-radius:26px; padding:60px; display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px; align-items:center;}
+  .cta h2{font-size:28px; font-weight:700; line-height:1.2; margin-bottom:14px;}
+  .cta p{color:var(--ink-soft); font-size:15px; max-width:440px;}
+  .cta-form{background:var(--white); border-radius:16px; padding:26px; border:1px solid var(--line);}
   .cta-form label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:6px; margin-top:16px;}
   .cta-form label:first-child{margin-top:0;}
-  .cta-form input{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-family:'Inter'; font-size:14px; background:var(--paper);}
-  .cta-form button{width:100%; margin-top:20px; padding:14px; border:none; border-radius:10px; background:var(--ink); color:var(--white); font-weight:600; font-size:14.5px; cursor:pointer;}
-  .cta-form button:hover{background:var(--teal-deep);}
+  .cta-form input, .cta-form select{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-family:'Inter'; font-size:14px; background:var(--paper);}
+  .cta-form button{width:100%; margin-top:20px; padding:14px; border:none; border-radius:10px; background:var(--navy-900); color:var(--white); font-weight:600; font-size:14.5px; cursor:pointer;}
+  .cta-form button:hover{background:var(--navy-800);}
 
   /* FOOTER */
-  footer{padding:52px 0 36px; border-top:1px solid var(--line);}
-  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:44px;}
+  footer{padding:50px 0 34px; border-top:1px solid var(--line);}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:40px;}
   .footer-grid h4{font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:14px;}
   .footer-grid ul{list-style:none;}
   .footer-grid li{margin-bottom:10px; font-size:14px;}
-  .footer-grid li a:hover{color:var(--teal-deep);}
+  .footer-grid li a:hover{color:var(--navy-700);}
   .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); flex-wrap:wrap; gap:10px;}
 
   @media (max-width:860px){
     .nav-links{display:none;}
     .menu-btn{display:block;}
     .hero-grid{grid-template-columns:1fr;}
-    .hero h1{font-size:34px;}
+    .hero h1{font-size:32px;}
+    .hero-mark{display:none;}
     .hero-stats{order:-1;}
     .section-head{grid-template-columns:1fr;}
     .sim-body{grid-template-columns:1fr;}
     .form-grid{grid-template-columns:1fr;}
+    .explainer-grid{grid-template-columns:1fr;}
     .audience-row{grid-template-columns:1fr; gap:10px;}
-    .process{padding:32px 22px;}
+    .process{padding:30px 20px;}
     .process-steps{grid-template-columns:1fr;}
-    .about{grid-template-columns:1fr; padding:30px;}
+    .about{grid-template-columns:1fr; padding:28px;}
     .testimonial-grid{grid-template-columns:1fr;}
-    .cta{grid-template-columns:1fr; padding:32px 22px;}
+    .cta{grid-template-columns:1fr; padding:30px 20px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
     .benefits-grid{grid-template-columns:1fr 1fr;}
     .compare{overflow-x:auto;}
@@ -215,17 +283,19 @@
   <div class="wrap">
     <nav>
       <a href="#" class="logo">
-        <img src="logo-mais-valor.png" alt="Mais Valor Capital" style="height:52px; width:auto; display:block;">
+        <img src="mais-valor-horizontal.png" alt="Mais Valor Capital">
       </a>
       <div class="nav-links">
-        <a href="#simulador">Simulador</a>
+        <a href="#simulador-financiamento">Financiamento</a>
+        <a href="#simulador-cgi">CGI</a>
+        <span class="divider"></span>
         <a href="#processo">Como funciona</a>
         <a href="#sobre">Sobre</a>
         <a href="#depoimentos">Depoimentos</a>
         <a href="#contato">Contato</a>
       </div>
-      <a href="#simulador" class="nav-cta">Simular agora</a>
-      <button class="menu-btn">☰</button>
+      <a href="https://wa.me/5562992951413" class="nav-cta">Falar no WhatsApp</a>
+      <button class="menu-btn" aria-label="Abrir menu">☰</button>
     </nav>
   </div>
 </header>
@@ -234,47 +304,74 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow">Financiamento & CGI especializado — Goiânia e Centro-Oeste</div>
-        <h1>Encontre o financiamento ideal com muito Mais Valor.</h1>
-        <p>Comparamos condições em mais de 15 instituições parceiras em um só lugar: financiamento residencial, comercial, construção e crédito com garantia de imóvel.</p>
+        <div class="eyebrow">Crédito imobiliário estruturado — Goiânia e Centro-Oeste</div>
+        <h1>Duas formas de transformar patrimônio em capital.</h1>
+        <p>A Mais Valor Capital compara condições em mais de 15 instituições parceiras para financiamento imobiliário e para crédito com garantia de imóvel — duas operações diferentes, cada uma com seu próprio simulador, para você escolher com clareza.</p>
         <div class="hero-actions">
-          <a href="#simulador" class="btn-primary">Simular financiamento</a>
-          <a href="https://wa.me/5562999817077" class="btn-secondary">Falar com consultora</a>
+          <a href="#simulador-financiamento" class="btn-primary">Simular financiamento</a>
+          <a href="#simulador-cgi" class="btn-outline">Simular CGI</a>
+        </div>
+        <div class="hero-modalities">
+          <span class="mod-pill fin"><span class="dot"></span>Financiamento imobiliário — comprar ou construir</span>
+          <span class="mod-pill cgi"><span class="dot"></span>CGI — liberar capital com imóvel já quitado</span>
         </div>
       </div>
-      <div class="hero-stats">
-        <div class="hs"><div class="n">15+</div><div class="l">bancos e fundos parceiros</div></div>
-        <div class="hs"><div class="n">15+ anos</div><div class="l">de experiência de Leyde Duarte</div></div>
-        <div class="hs"><div class="n">Até 420x</div><div class="l">prazo para amortização</div></div>
-        <div class="hs"><div class="n">0% custo</div><div class="l">assessoria sem taxa inicial</div></div>
+      <div class="hero-visual">
+        <img src="logo-mais-valor.png" alt="" class="hero-mark" aria-hidden="true">
+        <div class="hero-stats">
+          <div class="hs"><div class="n">15+</div><div class="l">bancos e fundos parceiros</div></div>
+          <div class="hs"><div class="n">15+ anos</div><div class="l">de experiência de Leyde Duarte</div></div>
+          <div class="hs"><div class="n">2 operações</div><div class="l">financiamento e CGI, simuladas em separado</div></div>
+          <div class="hs"><div class="n">0% custo</div><div class="l">assessoria sem taxa inicial</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" style="padding:0 0 56px;">
-  <div class="wrap" style="text-align:center;">
-    <h2 style="font-size:26px; margin-bottom:8px;">Conheça a Mais Valor Capital</h2>
-    <p style="color:var(--ink-soft); margin-bottom:28px;">Leyde Duarte explica como podemos ajudar você</p>
-    <div style="max-width:820px; margin:0 auto; border-radius:20px; overflow:hidden; aspect-ratio:16/9; border:1px solid var(--line);">
-      <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/REPLACE_COM_ID_DO_VIDEO" title="Conheça a Mais Valor Capital" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" style="display:block; border:0;"></iframe>
+<section class="intro-video">
+  <div class="wrap">
+    <!-- Substituir REPLACE_COM_ID_DO_VIDEO pelo ID do vídeo de apresentação da Mais Valor Capital no YouTube -->
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/REPLACE_COM_ID_DO_VIDEO" title="Conheça a Mais Valor Capital" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">
+      <h2>Conheça a Mais Valor Capital</h2>
+      <p>Leyde Duarte explica como funciona a assessoria de crédito imobiliário, do diagnóstico à liberação do capital.</p>
     </div>
   </div>
 </section>
 
-<section class="section" style="padding:0 0 64px;" id="beneficios">
+<section class="explainer" id="diferenca">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Um crédito pensado para quem já tem patrimônio.</h2>
-      <p>O CGI (crédito com garantia de imóvel) troca juros mais altos por um imóvel como garantia — mantendo o bem no seu nome.</p>
+    <div class="explainer-head">
+      <h2>Financiamento imobiliário e CGI não são a mesma coisa.</h2>
+      <p>São duas operações de crédito diferentes, com objetivos, taxas e prazos distintos. Escolha a que combina com o que você precisa antes de simular.</p>
     </div>
-    <div class="benefits-grid">
-      <div class="benefit"><div class="b-num">Até 60%</div><div class="b-lbl">do valor do imóvel liberado em crédito</div></div>
-      <div class="benefit"><div class="b-num">240 meses</div><div class="b-lbl">de prazo para pagar, em parcelas fixas</div></div>
-      <div class="benefit"><div class="b-num">Livre uso</div><div class="b-lbl">reformar, investir, quitar dívidas ou expandir um negócio</div></div>
-      <div class="benefit"><div class="b-num">Imóvel quitado ou financiado</div><div class="b-lbl">aceito como garantia, residencial ou comercial</div></div>
+    <div class="explainer-grid">
+      <div class="exp-card fin">
+        <span class="exp-tag">Financiamento imobiliário</span>
+        <h3>Para comprar, construir ou reformar um imóvel</h3>
+        <p>O próprio imóvel financiado vira a garantia da operação. Ideal para quem ainda não tem o bem e precisa de crédito para adquiri-lo.</p>
+        <ul class="exp-list">
+          <li>Até 80% do valor do imóvel</li>
+          <li>Prazos de até 35 anos (420 meses)</li>
+          <li>Residencial, comercial, terreno ou construção</li>
+        </ul>
+        <a href="#simulador-financiamento" class="exp-link">Simular financiamento →</a>
+      </div>
+      <div class="exp-card cgi">
+        <span class="exp-tag">Crédito com garantia de imóvel (CGI)</span>
+        <h3>Para liberar capital usando um imóvel que você já tem</h3>
+        <p>Você dá um imóvel quitado ou financiado como garantia e recebe crédito livre — o bem continua no seu nome e uso normalmente.</p>
+        <ul class="exp-list">
+          <li>Até 60% do valor do imóvel</li>
+          <li>Prazos de até 20 anos (240 meses)</li>
+          <li>Uso livre: investir, quitar dívidas, expandir negócio</li>
+        </ul>
+        <a href="#simulador-cgi" class="exp-link">Simular CGI →</a>
+      </div>
     </div>
-    <p style="color:var(--ink-soft); font-size:13.5px; margin-top:16px;">O imóvel dado em garantia continua no seu nome — você segue usando ou morando nele normalmente durante todo o contrato.</p>
   </div>
 </section>
 
@@ -296,101 +393,203 @@
   </div>
 </div>
 
-<section class="section" id="simulador">
+<section class="section" id="simulador-financiamento">
   <div class="wrap">
     <div class="section-head">
-      <h2>Simule sua operação de crédito</h2>
-      <p>Compare financiamento imobiliário e crédito com garantia de imóvel (CGI) com base nas taxas médias praticadas pelos nossos parceiros.</p>
+      <h2>Simulador de financiamento imobiliário</h2>
+      <p>Para compra, construção ou reforma. Estimativa pela tabela SAC, com taxas médias praticadas pelos nossos parceiros.</p>
     </div>
-    <div class="simulator">
-      <div class="sim-head">
-        <h3>Simulador de crédito</h3>
-        <div class="sim-tabs">
-          <button class="sim-tab active" id="tab-fin" type="button">Financiamento imobiliário</button>
-          <button class="sim-tab" id="tab-cgi" type="button">Crédito com garantia (CGI)</button>
+    <div class="sim-module fin">
+      <div class="sim-module-head">
+        <div>
+          <h3>Financiamento imobiliário</h3>
+          <div class="sub">Aquisição, construção e reforma — até 80% do imóvel</div>
         </div>
+        <span class="sim-icon-tag">Financiamento</span>
       </div>
       <div class="sim-body">
         <div>
           <div class="form-grid">
             <div class="field">
               <label>Valor do imóvel <span class="hint">avaliação</span></label>
-              <input type="text" id="prop-val" value="650.000" inputmode="numeric">
+              <input type="text" id="fin-prop-val" value="650.000" inputmode="numeric">
             </div>
             <div class="field">
-              <label>Valor do crédito <span class="hint" id="ltv-hint">até 80%</span></label>
-              <input type="text" id="loan-val" value="520.000" inputmode="numeric">
+              <label>Valor do financiamento <span class="hint">até 80%</span></label>
+              <input type="text" id="fin-loan-val" value="520.000" inputmode="numeric">
             </div>
           </div>
           <div class="form-grid">
             <div class="field">
-              <label>Prazo total <span class="hint" id="term-display">360 meses</span></label>
-              <select id="term-months">
+              <label>Prazo total <span class="hint" id="fin-term-display">360 meses</span></label>
+              <select id="fin-term-months">
                 <option value="60">60 meses (5 anos)</option>
                 <option value="120">120 meses (10 anos)</option>
                 <option value="180">180 meses (15 anos)</option>
                 <option value="240">240 meses (20 anos)</option>
                 <option value="300">300 meses (25 anos)</option>
                 <option value="360" selected>360 meses (30 anos)</option>
-                <option value="420" id="opt-420">420 meses (35 anos)</option>
+                <option value="420">420 meses (35 anos)</option>
               </select>
             </div>
             <div class="field">
               <label>Renda mensal necessária <span class="hint">calculada automaticamente</span></label>
-              <input type="text" id="income-val" value="18.000" readonly style="cursor:default; color:var(--ink-soft);">
+              <input type="text" id="fin-income-val" value="18.000" readonly style="cursor:default; color:var(--ink-soft);">
             </div>
           </div>
-          <div class="rate-note" id="rate-note">Taxas médias estimadas a partir de <strong>12% a.a. (~0,95% ao mês)</strong> (SAC).</div>
-          <button class="btn-block" id="calc-btn" type="button">Recalcular condições</button>
+          <div class="rate-note">Taxas médias estimadas a partir de <strong>12% a.a. (~0,95% ao mês)</strong> (SAC).</div>
+          <button class="btn-block" id="fin-calc-btn" type="button">Recalcular condições</button>
         </div>
         <div class="results">
           <div>
             <div class="results-grid">
               <div class="res-card highlight">
                 <div class="lbl">1ª parcela estimada</div>
-                <div class="val" id="res-first">R$ 5.638</div>
-                <div class="sub">Última: <strong id="res-last">R$ 1.402</strong></div>
+                <div class="val" id="fin-res-first">R$ 5.638</div>
+                <div class="sub">Última: <strong id="fin-res-last">R$ 1.402</strong></div>
               </div>
               <div class="res-card">
                 <div class="lbl">Renda mínima</div>
-                <div class="val" id="res-income">R$ 18.796</div>
-                <div class="sub" id="income-note">Renda compatível</div>
+                <div class="val" id="fin-res-income">R$ 18.796</div>
+                <div class="sub">3,2x a parcela</div>
               </div>
               <div class="res-card">
                 <div class="lbl">Taxa referência</div>
-                <div class="val" id="res-rate">12,00%</div>
+                <div class="val" id="fin-res-rate">12,00%</div>
                 <div class="sub">Sistema SAC</div>
               </div>
               <div class="res-card">
                 <div class="lbl">LTV financiado</div>
-                <div class="val" id="res-ltv">76,9%</div>
+                <div class="val" id="fin-res-ltv">76,9%</div>
                 <div class="sub">Crédito / imóvel</div>
               </div>
             </div>
           </div>
-          <a href="#" id="wa-proposal" class="wa-btn" target="_blank" rel="noopener">Solicitar aprovação deste crédito</a>
+          <a href="#" id="fin-wa-proposal" class="wa-btn" target="_blank" rel="noopener">Solicitar aprovação deste financiamento</a>
         </div>
       </div>
-      <div class="faq" style="padding:0 32px 32px;">
-        <details class="faq-item">
-          <summary>Financiamento imobiliário ou CGI? Entenda a diferença</summary>
-          <p><strong>Financiamento:</strong> para aquisição de imóvel novo, usado, terreno ou construção — até 80% do valor, prazos de até 35 anos. <strong>CGI (home equity):</strong> você usa um imóvel quitado como garantia para obter crédito livre com taxas menores, até 240 meses para pagar.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Como funciona a amortização pela tabela SAC?</summary>
-          <p>No SAC, a amortização é fixa mês a mês, reduzindo o saldo devedor mais rápido. Os juros diminuem ao longo do tempo, então a parcela começa mais alta e vai caindo até o fim do contrato.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Documentação necessária para dar entrada</summary>
-          <p>Para a análise preliminar: documento de identidade, comprovante de endereço atualizado, comprovante de renda (últimos 3 holerites, IRPF ou extratos de 6 meses), certidão de estado civil e matrícula atualizada do imóvel dado em garantia.</p>
-        </details>
-        <details class="faq-item">
-          <summary>A documentação muda de acordo com o banco escolhido?</summary>
-          <p>Na prática, não. Independentemente de qual das mais de 15 instituições parceiras aprove sua operação, a documentação exigida para o CGI segue basicamente o mesmo padrão — o que muda entre elas é taxa, prazo e percentual liberado sobre o valor do imóvel.</p>
-        </details>
-      </div>
-      <p class="disclaimer">* Simulações são estimativas com base em taxas médias de mercado, sujeitas à análise de crédito e ao perfil de cada tomador. Fale com a assessoria para condições personalizadas.</p>
+      <p class="disclaimer">* Simulação é uma estimativa com base em taxas médias de mercado, sujeita à análise de crédito e ao perfil de cada tomador. Fale com a assessoria para condições personalizadas.</p>
     </div>
+  </div>
+</section>
+
+<section class="section" id="simulador-cgi" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Simulador de crédito com garantia de imóvel (CGI)</h2>
+      <p>Para liberar capital com um imóvel que você já tem, quitado ou financiado. O bem continua no seu nome e uso.</p>
+    </div>
+    <div class="sim-module cgi">
+      <div class="sim-module-head">
+        <div>
+          <h3>Crédito com garantia de imóvel (CGI)</h3>
+          <div class="sub">Crédito livre — até 60% do imóvel dado em garantia</div>
+        </div>
+        <span class="sim-icon-tag">CGI</span>
+      </div>
+      <div class="sim-body">
+        <div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Valor do imóvel em garantia <span class="hint">avaliação</span></label>
+              <input type="text" id="cgi-prop-val" value="650.000" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label>Valor do crédito <span class="hint">até 60%</span></label>
+              <input type="text" id="cgi-loan-val" value="390.000" inputmode="numeric">
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Prazo total <span class="hint" id="cgi-term-display">240 meses</span></label>
+              <select id="cgi-term-months">
+                <option value="60">60 meses (5 anos)</option>
+                <option value="120">120 meses (10 anos)</option>
+                <option value="180">180 meses (15 anos)</option>
+                <option value="240" selected>240 meses (20 anos)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Renda mensal necessária <span class="hint">calculada automaticamente</span></label>
+              <input type="text" id="cgi-income-val" value="18.000" readonly style="cursor:default; color:var(--ink-soft);">
+            </div>
+          </div>
+          <div class="rate-note">Taxas a partir de <strong>1,09% a 1,75% ao mês + IPCA</strong> (crédito livre).</div>
+          <button class="btn-block" id="cgi-calc-btn" type="button">Recalcular condições</button>
+        </div>
+        <div class="results">
+          <div>
+            <div class="results-grid">
+              <div class="res-card highlight">
+                <div class="lbl">1ª parcela estimada</div>
+                <div class="val" id="cgi-res-first">R$ 4.230</div>
+                <div class="sub">Última: <strong id="cgi-res-last">R$ 1.877</strong></div>
+              </div>
+              <div class="res-card">
+                <div class="lbl">Renda mínima</div>
+                <div class="val" id="cgi-res-income">R$ 13.536</div>
+                <div class="sub">3,2x a parcela</div>
+              </div>
+              <div class="res-card">
+                <div class="lbl">Taxa referência</div>
+                <div class="val" id="cgi-res-rate">14,50%</div>
+                <div class="sub">+ IPCA</div>
+              </div>
+              <div class="res-card">
+                <div class="lbl">LTV liberado</div>
+                <div class="val" id="cgi-res-ltv">60,0%</div>
+                <div class="sub">Crédito / imóvel</div>
+              </div>
+            </div>
+          </div>
+          <a href="#" id="cgi-wa-proposal" class="wa-btn" target="_blank" rel="noopener">Solicitar aprovação deste CGI</a>
+        </div>
+      </div>
+      <p class="disclaimer">* Simulação é uma estimativa com base em taxas médias de mercado, sujeita à análise de crédito e ao perfil de cada tomador. Fale com a assessoria para condições personalizadas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Perguntas frequentes</h2>
+      <p>Dúvidas comuns sobre as duas operações e a documentação necessária.</p>
+    </div>
+    <div class="faq" style="border-top:1px solid var(--line);">
+      <details class="faq-item" open>
+        <summary>Financiamento imobiliário ou CGI? Qual escolher</summary>
+        <p><strong>Financiamento:</strong> use quando ainda não tem o imóvel — compra, construção ou reforma, até 80% do valor. <strong>CGI:</strong> use quando já tem um imóvel (quitado ou financiado) e quer transformar parte dele em crédito livre, até 60% do valor.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como funciona a amortização pela tabela SAC?</summary>
+        <p>No SAC, a amortização é fixa mês a mês, reduzindo o saldo devedor mais rápido. Os juros diminuem ao longo do tempo, então a parcela começa mais alta e vai caindo até o fim do contrato. Vale para as duas operações.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Documentação necessária para dar entrada</summary>
+        <p>Para a análise preliminar: documento de identidade, comprovante de endereço atualizado, comprovante de renda (últimos 3 holerites, IRPF ou extratos de 6 meses), certidão de estado civil e matrícula atualizada do imóvel envolvido na operação.</p>
+      </details>
+      <details class="faq-item">
+        <summary>A documentação muda de acordo com o banco escolhido?</summary>
+        <p>Na prática, não. Independentemente de qual das mais de 15 instituições parceiras aprove sua operação, a documentação exigida segue basicamente o mesmo padrão — o que muda entre elas é taxa, prazo e percentual liberado sobre o valor do imóvel.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;" id="beneficios">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>CGI: um crédito pensado para quem já tem patrimônio.</h2>
+      <p>O CGI troca juros mais altos por um imóvel como garantia — mantendo o bem no seu nome.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit"><div class="b-num">Até 60%</div><div class="b-lbl">do valor do imóvel liberado em crédito</div></div>
+      <div class="benefit"><div class="b-num">240 meses</div><div class="b-lbl">de prazo para pagar, em parcelas fixas</div></div>
+      <div class="benefit"><div class="b-num">Livre uso</div><div class="b-lbl">reformar, investir, quitar dívidas ou expandir um negócio</div></div>
+      <div class="benefit"><div class="b-num">Imóvel quitado ou financiado</div><div class="b-lbl">aceito como garantia, residencial ou comercial</div></div>
+    </div>
+    <p style="color:var(--ink-soft); font-size:13.5px; margin-top:16px;">O imóvel dado em garantia continua no seu nome — você segue usando ou morando nele normalmente durante todo o contrato.</p>
   </div>
 </section>
 
@@ -424,10 +623,10 @@
       <p>Cada perfil de cliente chega até nós com um objetivo diferente. Nosso trabalho é entender qual operação de crédito faz sentido para cada um.</p>
     </div>
     <div class="audience-list">
-      <div class="audience-row"><h3>Proprietários de imóvel</h3><p>Quer liberar capital usando o imóvel como garantia, sem precisar vendê-lo — para investir, quitar dívidas ou expandir um negócio.</p></div>
+      <div class="audience-row"><h3>Proprietários de imóvel</h3><p>Quer liberar capital usando o imóvel como garantia (CGI), sem precisar vendê-lo — para investir, quitar dívidas ou expandir um negócio.</p></div>
+      <div class="audience-row"><h3>Quem está comprando ou construindo</h3><p>Precisa de financiamento imobiliário para adquirir o bem, construir ou reformar, com o próprio imóvel como garantia da operação.</p></div>
       <div class="audience-row"><h3>Empresários e investidores</h3><p>Precisa de crédito com ticket maior, estruturado sobre patrimônio imobiliário, com análise de capacidade de pagamento feita sob medida.</p></div>
-      <div class="audience-row"><h3>Brasileiros no exterior</h3><p>Mora fora do Brasil e quer acessar crédito imobiliário brasileiro — compra, financiamento ou home equity de um imóvel no país.</p></div>
-      <div class="audience-row"><h3>Quem precisa reorganizar o crédito</h3><p>Tem patrimônio, mas o perfil de crédito não reflete isso ainda. Trabalhamos a estruturação do dossiê antes de ir ao banco.</p></div>
+      <div class="audience-row"><h3>Brasileiros no exterior</h3><p>Mora fora do Brasil e quer acessar crédito imobiliário brasileiro — compra, financiamento ou CGI de um imóvel no país.</p></div>
     </div>
   </div>
 </section>
@@ -435,12 +634,12 @@
 <section class="section" id="processo">
   <div class="wrap">
     <div class="process">
-      <div class="section-head" style="margin-bottom:36px;">
+      <div class="section-head" style="margin-bottom:34px;">
         <h2>Três passos até a melhor condição bancária.</h2>
-        <p>Um processo conduzido de ponta a ponta, sem taxa de cadastro.</p>
+        <p>Um processo conduzido de ponta a ponta, sem taxa de cadastro — para financiamento ou para CGI.</p>
       </div>
       <div class="process-steps">
-        <div class="step"><div class="step-num">01</div><h3>Análise & perfil</h3><p>Recebemos seus dados e sua necessidade de crédito, sem burocracia nem taxas de cadastro.</p></div>
+        <div class="step"><div class="step-num">01</div><h3>Análise & perfil</h3><p>Recebemos seus dados e sua necessidade de crédito, e definimos junto com você se é financiamento ou CGI.</p></div>
         <div class="step"><div class="step-num">02</div><h3>Comparação multibancos</h3><p>Submetemos sua proposta simultaneamente a mais de 15 parceiros para encontrar a menor taxa.</p></div>
         <div class="step"><div class="step-num">03</div><h3>Aprovação & conquista</h3><p>Você escolhe a melhor opção, assina o contrato e realiza seu objetivo com segurança.</p></div>
       </div>
@@ -451,11 +650,12 @@
 <section class="section" id="sobre">
   <div class="wrap">
     <div class="about">
+      <!-- Substituir pela foto oficial de Leyde Duarte -->
       <img class="about-photo" alt="Leyde Duarte" src="leyde-duarte.jpg" style="object-position:top center;">
       <div>
         <h3>Leyde Duarte</h3>
-        <div class="role">Fundadora e corretora de imóveis em Goiânia, especialista em desenvolvimento imobiliário e crédito imobiliário.</div>
-        <p>Com mais de 15 anos de atuação no mercado imobiliário de Goiânia e do Centro-Oeste, Leyde lidera a Mais Valor Capital dentro de um ecossistema que também inclui a Mais Novos Imóveis e a atuação como corretora de imóveis — garantindo assessoria de ponta a ponta, da análise de crédito até a liberação do capital.</p>
+        <div class="role">Fundadora e corretora de imóveis em Goiânia, especialista em estruturação de ativos imobiliários e crédito imobiliário.</div>
+        <p>Com mais de 15 anos de atuação no mercado imobiliário de Goiânia e do Centro-Oeste, Leyde lidera a Mais Valor Capital dentro de um ecossistema que também inclui a Mais Novos Imóveis e a atuação como corretora de imóveis — garantindo assessoria de ponta a ponta, da análise de crédito até a liberação do capital, seja em financiamento ou em CGI.</p>
         <div class="eco-tags">
           <span class="eco-tag main">Mais Valor Capital</span>
           <span class="eco-tag">Mais Novos Imóveis</span>
@@ -475,9 +675,25 @@
       <p>Experiências de quem já conquistou seu crédito com a Mais Valor Capital.</p>
     </div>
     <div class="testimonial-grid">
-      <div class="t-card"><div class="t-video">Depoimento em vídeo</div><div class="t-info"><span class="name">Cliente</span><span class="op">Financiamento residencial</span></div></div>
-      <div class="t-card"><div class="t-video">Depoimento em vídeo</div><div class="t-info"><span class="name">Cliente</span><span class="op">Crédito com garantia (CGI)</span></div></div>
-      <div class="t-card"><div class="t-video">Depoimento em vídeo</div><div class="t-info"><span class="name">Cliente</span><span class="op">Financiamento comercial</span></div></div>
+      <!-- Para cada depoimento, trocar o src do iframe pelo link do vídeo publicado no YouTube -->
+      <div class="t-card">
+        <div class="t-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/REPLACE_DEPOIMENTO_1" title="Depoimento — Financiamento residencial" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="t-info"><span class="name">Cliente</span><span class="op">Financiamento residencial</span></div>
+      </div>
+      <div class="t-card">
+        <div class="t-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/REPLACE_DEPOIMENTO_2" title="Depoimento — Crédito com garantia (CGI)" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="t-info"><span class="name">Cliente</span><span class="op">Crédito com garantia (CGI)</span></div>
+      </div>
+      <div class="t-card">
+        <div class="t-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/REPLACE_DEPOIMENTO_3" title="Depoimento — Financiamento comercial" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="t-info"><span class="name">Cliente</span><span class="op">Financiamento comercial</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -494,6 +710,12 @@
         <input type="text" id="cf-name" placeholder="Seu nome completo" required>
         <label>WhatsApp</label>
         <input type="tel" id="cf-phone" placeholder="(62) 00000-0000" required>
+        <label>Qual operação você precisa?</label>
+        <select id="cf-modality">
+          <option value="Financiamento imobiliário">Financiamento imobiliário</option>
+          <option value="Crédito com garantia de imóvel (CGI)">Crédito com garantia de imóvel (CGI)</option>
+          <option value="Ainda não sei qual é a certa">Ainda não sei qual é a certa</option>
+        </select>
         <label>O que você precisa?</label>
         <input type="text" id="cf-need" placeholder="Ex: liberar capital com meu imóvel">
         <button type="submit">Solicitar contato</button>
@@ -506,11 +728,9 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
-          <a href="#" class="logo">
-            <img src="logo-mais-valor.png" alt="Mais Valor Capital" style="height:50px; width:auto; display:block;">
-          </a>
-          <img src="certificacao-aneps.png" alt="Certificação ANEPS — Profissional Certificado" style="height:56px; width:auto; display:block;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:14px; flex-wrap:wrap;">
+          <img src="mais-valor-horizontal.png" alt="Mais Valor Capital" style="height:40px; width:auto; display:block;">
+          <img src="certificacao-aneps.png" alt="Certificação ANEPS — Profissional Certificado" style="height:54px; width:auto; display:block;">
         </div>
         <p style="color:var(--ink-soft); font-size:14px; max-width:280px; margin-top:14px;">Mais de 15 anos de experiência no mercado imobiliário em Goiânia e Centro-Oeste.</p>
       </div>
@@ -525,7 +745,8 @@
       <div>
         <h4>Empresa</h4>
         <ul>
-          <li><a href="#simulador">Simulador</a></li>
+          <li><a href="#simulador-financiamento">Financiamento</a></li>
+          <li><a href="#simulador-cgi">CGI</a></li>
           <li><a href="#processo">Como funciona</a></li>
           <li><a href="#sobre">Sobre</a></li>
         </ul>
@@ -533,7 +754,7 @@
       <div>
         <h4>Canais oficiais</h4>
         <ul>
-          <li><a href="tel:+5562999817077">(62) 9 9981-7077</a></li>
+          <li><a href="https://wa.me/5562992951413">(62) 9 9295-1413 — WhatsApp</a></li>
           <li>Goiânia/GO — atendimento nacional</li>
         </ul>
       </div>
@@ -547,34 +768,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const state = { type:"fin", propertyValue:650000, loanValue:520000, termMonths:360, incomeValue:18000,
-    rateFinAnnual:0.12, rateCgiAnnual:0.145 };
-
-  const tabFin = document.getElementById("tab-fin");
-  const tabCgi = document.getElementById("tab-cgi");
-  const propInput = document.getElementById("prop-val");
-  const loanInput = document.getElementById("loan-val");
-  const termSelect = document.getElementById("term-months");
-  const incomeInput = document.getElementById("income-val");
-  const calcBtn = document.getElementById("calc-btn");
-  const ltvHint = document.getElementById("ltv-hint");
-  const termDisplay = document.getElementById("term-display");
-  const rateNote = document.getElementById("rate-note");
-  const resFirst = document.getElementById("res-first");
-  const resLast = document.getElementById("res-last");
-  const resIncome = document.getElementById("res-income");
-  const resRate = document.getElementById("res-rate");
-  const resLtv = document.getElementById("res-ltv");
-  const incomeNote = document.getElementById("income-note");
-  const waBtn = document.getElementById("wa-proposal");
-  const opt420 = document.getElementById("opt-420");
-
   const INCOME_MULTIPLIER = 3.2;
 
   function parseCurrency(str){ const c = (str||"").toString().replace(/[^\d]/g,""); return c ? parseInt(c,10) : 0; }
   function fmtNum(n){ return new Intl.NumberFormat("pt-BR").format(Math.round(n)); }
   function fmtCur(n){ return "R$ " + fmtNum(n); }
-  function maxLTV(){ return state.type === "fin" ? 0.80 : 0.60; }
 
   function setupMask(input, cb){
     input.addEventListener("input", (e) => {
@@ -583,88 +781,148 @@ document.addEventListener("DOMContentLoaded", () => {
       cb(raw);
     });
   }
-  // Valor do imóvel: ao digitar, o valor do crédito é preenchido automaticamente no teto (80%/60%)
-  setupMask(propInput, v => {
-    state.propertyValue = v;
-    state.loanValue = Math.round(v * maxLTV());
-    loanInput.value = fmtNum(state.loanValue);
-    calc();
-  });
-  // Valor do crédito: a pessoa ainda pode digitar um valor menor manualmente; nunca passa do teto
-  setupMask(loanInput, v => { state.loanValue = v; validateLTV(); calc(); });
 
-  termSelect.addEventListener("change", e => {
-    state.termMonths = parseInt(e.target.value,10);
-    termDisplay.textContent = state.termMonths + " meses (" + Math.round(state.termMonths/12) + " anos)";
-    calc();
-  });
+  // ---------- Simulador de Financiamento Imobiliário ----------
+  (function(){
+    const state = { propertyValue:650000, loanValue:520000, termMonths:360, rateAnnual:0.12 };
+    const maxLTV = 0.80;
 
-  function validateLTV(){
-    const max = maxLTV();
-    if (state.loanValue > state.propertyValue * max){
-      state.loanValue = Math.round(state.propertyValue * max);
+    const propInput = document.getElementById("fin-prop-val");
+    const loanInput = document.getElementById("fin-loan-val");
+    const termSelect = document.getElementById("fin-term-months");
+    const incomeInput = document.getElementById("fin-income-val");
+    const calcBtn = document.getElementById("fin-calc-btn");
+    const termDisplay = document.getElementById("fin-term-display");
+    const resFirst = document.getElementById("fin-res-first");
+    const resLast = document.getElementById("fin-res-last");
+    const resIncome = document.getElementById("fin-res-income");
+    const resRate = document.getElementById("fin-res-rate");
+    const resLtv = document.getElementById("fin-res-ltv");
+    const waBtn = document.getElementById("fin-wa-proposal");
+
+    function validateLTV(){
+      if (state.loanValue > state.propertyValue * maxLTV){
+        state.loanValue = Math.round(state.propertyValue * maxLTV);
+        loanInput.value = fmtNum(state.loanValue);
+      }
+    }
+
+    setupMask(propInput, v => {
+      state.propertyValue = v;
+      state.loanValue = Math.round(v * maxLTV);
       loanInput.value = fmtNum(state.loanValue);
-    }
-  }
+      calc();
+    });
+    setupMask(loanInput, v => { state.loanValue = v; validateLTV(); calc(); });
+    termSelect.addEventListener("change", e => {
+      state.termMonths = parseInt(e.target.value,10);
+      termDisplay.textContent = state.termMonths + " meses (" + Math.round(state.termMonths/12) + " anos)";
+      calc();
+    });
+    calcBtn.addEventListener("click", calc);
 
-  function switchType(type){
-    state.type = type;
-    if (type === "fin"){
-      tabFin.classList.add("active"); tabCgi.classList.remove("active");
-      ltvHint.textContent = "até 80%";
-      rateNote.innerHTML = "Taxas médias estimadas a partir de <strong>12% a.a. (~0,95% ao mês)</strong> (SAC).";
-      if (opt420 && !termSelect.contains(opt420)) termSelect.appendChild(opt420);
-    } else {
-      tabCgi.classList.add("active"); tabFin.classList.remove("active");
-      ltvHint.textContent = "até 60%";
-      rateNote.innerHTML = "Taxas a partir de <strong>1,09% a 1,75% ao mês + IPCA</strong> (crédito livre).";
-      if (parseInt(termSelect.value,10) > 240){ termSelect.value = "240"; state.termMonths = 240; termDisplay.textContent = "240 meses (20 anos)"; }
-      if (opt420) opt420.remove();
+    function calc(){
+      const P = state.loanValue, n = state.termMonths;
+      const monthly = Math.pow(1+state.rateAnnual, 1/12) - 1;
+      if (P <= 0 || n <= 0) return;
+      const A = P / n;
+      const insM1 = P * 0.00035 + 25;
+      const insMn = A * 0.00035 + 25;
+      const first = A + (P*monthly) + insM1;
+      const last = A + (A*monthly) + insMn;
+      const reqIncome = first * INCOME_MULTIPLIER;
+      incomeInput.value = fmtNum(reqIncome);
+      const ltv = state.propertyValue > 0 ? (P/state.propertyValue)*100 : 0;
+
+      resFirst.textContent = fmtCur(first);
+      resLast.textContent = fmtCur(last);
+      resIncome.textContent = fmtCur(reqIncome);
+      resRate.textContent = (state.rateAnnual*100).toFixed(2).replace(".",",") + "%";
+      resLtv.textContent = ltv.toFixed(1).replace(".",",") + "%";
+
+      const msg = encodeURIComponent(
+        "Olá Leyde / Mais Valor Capital! Fiz uma simulação no site para Financiamento Imobiliário:\n" +
+        "Valor do imóvel: " + fmtCur(state.propertyValue) + "\n" +
+        "Valor solicitado: " + fmtCur(state.loanValue) + "\n" +
+        "Prazo: " + state.termMonths + " meses\n" +
+        "1ª parcela: " + fmtCur(first) + "\n" +
+        "Gostaria de solicitar a análise do meu crédito."
+      );
+      waBtn.href = "https://wa.me/5562992951413?text=" + msg;
     }
-    // Ao trocar a modalidade, o valor do crédito é recalculado automaticamente para o novo teto
-    state.loanValue = Math.round(state.propertyValue * maxLTV());
-    loanInput.value = fmtNum(state.loanValue);
     calc();
-  }
-  tabFin.addEventListener("click", () => switchType("fin"));
-  tabCgi.addEventListener("click", () => switchType("cgi"));
-  calcBtn.addEventListener("click", calc);
+  })();
 
-  function calc(){
-    const P = state.loanValue, n = state.termMonths;
-    const annual = state.type === "fin" ? state.rateFinAnnual : state.rateCgiAnnual;
-    const monthly = Math.pow(1+annual, 1/12) - 1;
-    if (P <= 0 || n <= 0) return;
-    const A = P / n;
-    const insM1 = P * 0.00035 + 25;
-    const insMn = A * 0.00035 + 25;
-    const first = A + (P*monthly) + insM1;
-    const last = A + (A*monthly) + insMn;
-    // Renda mensal necessária = 3,2x o valor da primeira parcela (preenchida automaticamente)
-    const reqIncome = first * INCOME_MULTIPLIER;
-    state.incomeValue = reqIncome;
-    incomeInput.value = fmtNum(reqIncome);
-    const ltv = state.propertyValue > 0 ? (P/state.propertyValue)*100 : 0;
+  // ---------- Simulador de Crédito com Garantia de Imóvel (CGI) ----------
+  (function(){
+    const state = { propertyValue:650000, loanValue:390000, termMonths:240, rateAnnual:0.145 };
+    const maxLTV = 0.60;
 
-    resFirst.textContent = fmtCur(first);
-    resLast.textContent = fmtCur(last);
-    resIncome.textContent = fmtCur(reqIncome);
-    resRate.textContent = (annual*100).toFixed(2).replace(".",",") + "%";
-    resLtv.textContent = ltv.toFixed(1).replace(".",",") + "%";
-    incomeNote.textContent = "3,2x a parcela";
+    const propInput = document.getElementById("cgi-prop-val");
+    const loanInput = document.getElementById("cgi-loan-val");
+    const termSelect = document.getElementById("cgi-term-months");
+    const incomeInput = document.getElementById("cgi-income-val");
+    const calcBtn = document.getElementById("cgi-calc-btn");
+    const termDisplay = document.getElementById("cgi-term-display");
+    const resFirst = document.getElementById("cgi-res-first");
+    const resLast = document.getElementById("cgi-res-last");
+    const resIncome = document.getElementById("cgi-res-income");
+    const resRate = document.getElementById("cgi-res-rate");
+    const resLtv = document.getElementById("cgi-res-ltv");
+    const waBtn = document.getElementById("cgi-wa-proposal");
 
-    const modality = state.type === "fin" ? "Financiamento Imobiliário" : "Crédito com Garantia (CGI)";
-    const msg = encodeURIComponent(
-      "Olá Leyde / Mais Valor Capital! Fiz uma simulação no site para " + modality + ":\n" +
-      "Valor do imóvel: " + fmtCur(state.propertyValue) + "\n" +
-      "Valor solicitado: " + fmtCur(state.loanValue) + "\n" +
-      "Prazo: " + state.termMonths + " meses\n" +
-      "1ª parcela: " + fmtCur(first) + "\n" +
-      "Gostaria de solicitar a análise do meu crédito."
-    );
-    waBtn.href = "https://wa.me/5562999817077?text=" + msg;
-  }
-  calc();
+    function validateLTV(){
+      if (state.loanValue > state.propertyValue * maxLTV){
+        state.loanValue = Math.round(state.propertyValue * maxLTV);
+        loanInput.value = fmtNum(state.loanValue);
+      }
+    }
+
+    setupMask(propInput, v => {
+      state.propertyValue = v;
+      state.loanValue = Math.round(v * maxLTV);
+      loanInput.value = fmtNum(state.loanValue);
+      calc();
+    });
+    setupMask(loanInput, v => { state.loanValue = v; validateLTV(); calc(); });
+    termSelect.addEventListener("change", e => {
+      state.termMonths = parseInt(e.target.value,10);
+      termDisplay.textContent = state.termMonths + " meses (" + Math.round(state.termMonths/12) + " anos)";
+      calc();
+    });
+    calcBtn.addEventListener("click", calc);
+
+    function calc(){
+      const P = state.loanValue, n = state.termMonths;
+      const monthly = Math.pow(1+state.rateAnnual, 1/12) - 1;
+      if (P <= 0 || n <= 0) return;
+      const A = P / n;
+      const insM1 = P * 0.00035 + 25;
+      const insMn = A * 0.00035 + 25;
+      const first = A + (P*monthly) + insM1;
+      const last = A + (A*monthly) + insMn;
+      const reqIncome = first * INCOME_MULTIPLIER;
+      incomeInput.value = fmtNum(reqIncome);
+      const ltv = state.propertyValue > 0 ? (P/state.propertyValue)*100 : 0;
+
+      resFirst.textContent = fmtCur(first);
+      resLast.textContent = fmtCur(last);
+      resIncome.textContent = fmtCur(reqIncome);
+      resRate.textContent = (state.rateAnnual*100).toFixed(2).replace(".",",") + "%";
+      resLtv.textContent = ltv.toFixed(1).replace(".",",") + "%";
+
+      const msg = encodeURIComponent(
+        "Olá Leyde / Mais Valor Capital! Fiz uma simulação no site para Crédito com Garantia de Imóvel (CGI):\n" +
+        "Valor do imóvel em garantia: " + fmtCur(state.propertyValue) + "\n" +
+        "Valor solicitado: " + fmtCur(state.loanValue) + "\n" +
+        "Prazo: " + state.termMonths + " meses\n" +
+        "1ª parcela: " + fmtCur(first) + "\n" +
+        "Gostaria de solicitar a análise do meu crédito."
+      );
+      waBtn.href = "https://wa.me/5562992951413?text=" + msg;
+    }
+    calc();
+  })();
 
   // Formulário "Solicitar contato": monta a mensagem e abre no WhatsApp oficial
   const contactForm = document.getElementById("contact-form");
@@ -673,14 +931,16 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const name = document.getElementById("cf-name").value.trim();
       const phone = document.getElementById("cf-phone").value.trim();
+      const modality = document.getElementById("cf-modality").value;
       const need = document.getElementById("cf-need").value.trim();
       const msg = encodeURIComponent(
         "Olá Leyde / Mais Valor Capital! Me chamo " + name +
         " (contato: " + phone + ")." +
+        " Tenho interesse em: " + modality + "." +
         (need ? " Preciso de: " + need + "." : "") +
         " Vim pelo site e gostaria de falar sobre meu crédito imobiliário."
       );
-      window.open("https://wa.me/5562999817077?text=" + msg, "_blank");
+      window.open("https://wa.me/5562992951413?text=" + msg, "_blank");
     });
   }
 });
