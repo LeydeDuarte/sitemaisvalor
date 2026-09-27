@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Depoimentos | Mais Valor Capital</title>
+<meta name="description" content="Depoimentos de clientes da Mais Valor Capital sobre financiamento imobiliário e CGI / Home Equity em Goiânia. Deixe também o seu depoimento.">
+<link rel="icon" type="image/png" href="logo-mais-valor.png">
+<link rel="apple-touch-icon" href="logo-mais-valor.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  .testimonials-hero{padding:56px 0 20px;}
+  .testimonials-hero h1{font-size:34px; font-weight:700; margin-bottom:12px;}
+  .testimonials-hero p{color:var(--ink-soft); font-size:15.5px; max-width:600px;}
+  .all-testimonial-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .empty-state{color:var(--ink-soft); font-size:14.5px; padding:40px 0; text-align:center;}
+  .write-card{background:var(--white); border:1px solid var(--line); border-radius:22px; padding:40px; max-width:560px; margin:0 auto;}
+  .write-card h2{font-size:22px; font-weight:700; margin-bottom:8px; text-align:center;}
+  .write-card > p{color:var(--ink-soft); font-size:14.5px; text-align:center; margin-bottom:24px;}
+  .gsi-wrap{display:flex; justify-content:center; margin-bottom:8px;}
+  .signed-in-box{display:none;}
+  .signed-in-profile{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .signed-in-profile img{width:44px; height:44px; border-radius:50%; object-fit:cover;}
+  .signed-in-profile .who{font-size:14px;}
+  .signed-in-profile .who .n{font-weight:600; display:block;}
+  .signed-in-profile .who .e{color:var(--ink-faint); font-size:12.5px;}
+  .write-card textarea{width:100%; min-height:120px; padding:14px; border:1px solid var(--line); border-radius:12px; font-family:'Inter'; font-size:14.5px; resize:vertical; background:var(--paper);}
+  .write-card textarea:focus{outline:2px solid var(--blue-500); outline-offset:1px;}
+  .form-msg{font-size:13.5px; margin-top:12px; text-align:center;}
+  .form-msg.ok{color:var(--ok, #1B8F5A);}
+  .form-msg.err{color:#B4232B;}
+  @media (max-width:860px){
+    .all-testimonial-grid{grid-template-columns:1fr;}
+    .write-card{padding:26px 20px;}
+  }
+</style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="index.html" class="logo">
+        <img src="mais-valor-horizontal.png" alt="Mais Valor Capital" class="logo-full">
+        <img src="logo-mais-valor.png" alt="Mais Valor Capital" class="logo-mark">
+      </a>
+      <div class="nav-links">
+        <a href="index.html#simulador-financiamento">Financiamento</a>
+        <a href="index.html#simulador-cgi">CGI / Home Equity</a>
+        <span class="divider"></span>
+        <a href="index.html#processo">Como funciona</a>
+        <a href="index.html#sobre">Sobre</a>
+        <a href="depoimentos.html">Depoimentos</a>
+        <a href="index.html#contato">Contato</a>
+      </div>
+      <a href="https://wa.me/5562992951413?text=Venho%20pelo%20site%20da%20Mais%20Valor%20Capital%20e%20tenho%20interesse%20em%20fazer%20um%20Financiamento%20Imobili%C3%A1rio%20ou%20um%20CGI%20/%20Home%20Equity." class="nav-cta">Falar no WhatsApp</a>
+      <button class="menu-btn" aria-label="Abrir menu">☰</button>
+    </nav>
+  </div>
+</header>
+
+<section class="testimonials-hero">
+  <div class="wrap">
+    <h1>Depoimentos de clientes</h1>
+    <p>Experiências reais de quem já fez financiamento imobiliário ou CGI / Home Equity com a Mais Valor Capital. Deixe também o seu depoimento no final da página.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:24px;">
+  <div class="wrap">
+    <div id="all-testimonials-grid" class="all-testimonial-grid">
+      <div class="empty-state">Carregando depoimentos...</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="write-card">
+      <h2>Deixe o seu depoimento</h2>
+      <p>Entre com sua conta do Google para confirmar quem você é. Seu nome e sua foto de perfil aparecem no depoimento; seu e-mail nunca é exibido.</p>
+
+      <div id="signed-out-box">
+        <div class="gsi-wrap">
+          <div id="g_id_onload"
+               data-client_id="983049266495-k4n8fdbt9rn7si969sjhirttfg9rvket.apps.googleusercontent.com"
+               data-callback="handleGoogleCredential"
+               data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin"
+               data-type="standard"
+               data-shape="pill"
+               data-theme="outline"
+               data-text="signin_with"
+               data-size="large">
+          </div>
+        </div>
+      </div>
+
+      <div id="signed-in-box" class="signed-in-box">
+        <div class="signed-in-profile">
+          <img id="signed-in-avatar" src="" alt="">
+          <div class="who">
+            <span class="n" id="signed-in-name"></span>
+            <span class="e">Depoimento será publicado após revisão</span>
+          </div>
+        </div>
+        <textarea id="testimonial-text" placeholder="Conte como foi sua experiência com a Mais Valor Capital..." maxlength="2000"></textarea>
+        <button class="btn-block" id="submit-testimonial-btn" type="button" style="background:var(--navy-900); margin-top:14px;">Enviar depoimento</button>
+        <div id="form-msg" class="form-msg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:14px; flex-wrap:wrap;">
+          <img src="mais-valor-horizontal.png" alt="Mais Valor Capital" style="height:40px; width:auto; display:block;">
+          <img src="mais-novos-imoveis-marca.png" alt="Mais Novos Imóveis" style="height:48px; width:auto; display:block;">
+          <img src="certificacao-aneps.png" alt="Certificação ANEPS de Profissional Certificado" style="height:54px; width:auto; display:block;">
+        </div>
+        <p style="color:var(--ink-soft); font-size:14px; max-width:280px; margin-top:14px;">Mais de 15 anos de experiência no mercado imobiliário em Goiânia, Centro-Oeste e Sudeste.</p>
+      </div>
+      <div>
+        <h4>Ecossistema</h4>
+        <ul>
+          <li><a href="index.html">Mais Valor Capital</a></li>
+          <li><a href="https://imoveisavendaemgoias.com.br" target="_blank" rel="noopener">Mais Novos Imóveis</a></li>
+          <li><a href="https://www.instagram.com/leydeduarte.br/" target="_blank" rel="noopener">Leyde Duarte Corretora de Imóveis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="index.html#simulador-financiamento">Financiamento</a></li>
+          <li><a href="index.html#simulador-cgi">CGI / Home Equity</a></li>
+          <li><a href="index.html#processo">Como funciona</a></li>
+          <li><a href="index.html#sobre">Sobre</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Canais oficiais</h4>
+        <ul>
+          <li><a href="https://wa.me/5562992951413?text=Venho%20pelo%20site%20da%20Mais%20Valor%20Capital%20e%20tenho%20interesse%20em%20fazer%20um%20Financiamento%20Imobili%C3%A1rio%20ou%20um%20CGI%20/%20Home%20Equity.">WhatsApp: (62) 9 9295-1413</a></li>
+          <li>Goiânia/GO, com atendimento nacional</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal" style="padding-top:22px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-faint); line-height:1.7;">
+      <p>Mais Valor Capital é uma marca pertencente à Mais Novos Inteligência Imobiliária, CNPJ 36.006.396/0001-21, CRECI 17586 e Correspondente Bancária 185260817022749, com sede na Rua T-37, Setor Bueno, Goiânia, Goiás.</p>
+      <p>A Mais Novos Inteligência Imobiliária possui certificação pela ANEPS, Associação Nacional das Empresas Promotoras de Crédito e Correspondentes no País, e atende aos requisitos da Resolução nº 4.935/21 do Conselho Monetário Nacional (CMN). Certificação PLDFT nº 0185260819071443. Certificação Crédito Imobiliário nº 0185260817022749. CJ 38746. CF 17586.</p>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mais Valor Capital. Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function esc(str){
+  return (str || '').toString().replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function cardHTML(item){
+  if (item.type === 'video'){
+    return '<div class="t-card"><div class="t-video"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(item.youtube_id) + '" title="Depoimento em vídeo" allowfullscreen loading="lazy"></iframe></div>' +
+      '<div class="t-info"><span class="name">' + esc(item.name) + '</span><span class="op">' + esc(item.label || '') + '</span></div></div>';
+  }
+  var avatar = item.avatar_url
+    ? '<img src="' + esc(item.avatar_url) + '" alt="" class="t-avatar">'
+    : '<div class="t-avatar t-avatar-placeholder"></div>';
+  return '<div class="t-card t-written"><div class="t-quote">\u201c' + esc(item.text_content || '') + '\u201d</div>' +
+    '<div class="t-info t-info-written">' + avatar + '<div><span class="name">' + esc(item.name) + '</span>' +
+    (item.label ? '<span class="op">' + esc(item.label) + '</span>' : '') + '</div></div></div>';
+}
+
+fetch('/api/testimonials').then(function(r){ return r.ok ? r.json() : Promise.reject(); }).then(function(data){
+  var grid = document.getElementById('all-testimonials-grid');
+  var list = (data && Array.isArray(data.testimonials)) ? data.testimonials : [];
+  if (!list.length){
+    grid.innerHTML = '<div class="empty-state">Ainda não há depoimentos publicados. Seja o primeiro a deixar o seu, logo abaixo!</div>';
+    return;
+  }
+  grid.innerHTML = list.map(cardHTML).join('');
+}).catch(function(){
+  document.getElementById('all-testimonials-grid').innerHTML = '<div class="empty-state">Não foi possível carregar os depoimentos agora. Tente novamente em instantes.</div>';
+});
+
+var currentCredential = null;
+
+function decodeJwtPayload(token){
+  try {
+    var base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c){
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('')));
+  } catch (e) {
+    return null;
+  }
+}
+
+function handleGoogleCredential(response){
+  currentCredential = response.credential;
+  var payload = decodeJwtPayload(response.credential);
+  if (!payload) return;
+  document.getElementById('signed-in-avatar').src = payload.picture || '';
+  document.getElementById('signed-in-name').textContent = payload.name || payload.given_name || 'Você';
+  document.getElementById('signed-out-box').style.display = 'none';
+  document.getElementById('signed-in-box').style.display = 'block';
+}
+
+document.getElementById('submit-testimonial-btn').addEventListener('click', function(){
+  var msg = document.getElementById('form-msg');
+  var text = document.getElementById('testimonial-text').value.trim();
+  msg.textContent = '';
+  msg.className = 'form-msg';
+
+  if (!currentCredential){
+    msg.textContent = 'Entre com sua conta do Google primeiro.';
+    msg.className = 'form-msg err';
+    return;
+  }
+  if (text.length < 10){
+    msg.textContent = 'Escreva um pouco mais sobre sua experiência (mínimo 10 caracteres).';
+    msg.className = 'form-msg err';
+    return;
+  }
+
+  var btn = document.getElementById('submit-testimonial-btn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  fetch('/api/submit-testimonial', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ credential: currentCredential, text: text })
+  }).then(function(r){ return r.ok ? r.json() : Promise.reject(); }).then(function(){
+    msg.textContent = 'Obrigado! Seu depoimento foi enviado e vai aparecer aqui assim que for revisado.';
+    msg.className = 'form-msg ok';
+    document.getElementById('testimonial-text').value = '';
+    btn.textContent = 'Enviado ✓';
+  }).catch(function(){
+    msg.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
+    msg.className = 'form-msg err';
+    btn.disabled = false;
+    btn.textContent = 'Enviar depoimento';
+  });
+});
+</script>
+</body>
+</html>

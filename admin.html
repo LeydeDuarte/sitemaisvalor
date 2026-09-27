@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administração de depoimentos | Mais Valor Capital</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="logo-mais-valor.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  body{background:var(--paper);}
+  .admin-wrap{max-width:900px; margin:0 auto; padding:48px 24px;}
+  .admin-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px;}
+  .admin-header img{height:36px;}
+  .login-card{max-width:400px; margin:80px auto; background:var(--white); border:1px solid var(--line); border-radius:18px; padding:32px; text-align:center;}
+  .login-card h1{font-size:19px; margin-bottom:16px;}
+  .login-card input{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-size:14.5px; margin-bottom:14px; font-family:'Inter';}
+  .login-card button{width:100%; padding:12px; border:none; border-radius:10px; background:var(--navy-900); color:#fff; font-weight:600; cursor:pointer;}
+  .login-err{color:#B4232B; font-size:13px; margin-top:10px; min-height:16px;}
+  .admin-section{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:24px; margin-bottom:24px;}
+  .admin-section h2{font-size:17px; margin-bottom:16px;}
+  .pending-item{border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:12px; display:flex; gap:14px; align-items:flex-start;}
+  .pending-item img.avatar{width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0;}
+  .pending-item .avatar-ph{width:40px; height:40px; border-radius:50%; background:var(--paper-2); border:1px solid var(--line); flex-shrink:0;}
+  .pending-item .body{flex:1;}
+  .pending-item .meta{font-size:12px; color:var(--ink-faint); margin-bottom:6px;}
+  .pending-item .name{font-weight:600; font-size:14.5px;}
+  .pending-item .text{font-size:14px; color:var(--ink-soft); margin-top:6px;}
+  .pending-item .actions{display:flex; gap:8px; margin-top:12px;}
+  .pending-item .actions button{padding:7px 14px; border-radius:8px; border:1px solid var(--line); background:var(--white); font-size:13px; font-weight:600; cursor:pointer;}
+  .btn-approve{color:#1B8F5A !important; border-color:#1B8F5A !important;}
+  .btn-reject{color:#B4232B !important; border-color:#B4232B !important;}
+  .btn-delete{color:var(--ink-faint) !important;}
+  .empty{color:var(--ink-soft); font-size:14px; padding:16px 0;}
+  .add-video-form{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .add-video-form input{padding:11px 13px; border:1px solid var(--line); border-radius:10px; font-size:14px; font-family:'Inter';}
+  .add-video-form button{grid-column:1 / -1; padding:12px; border:none; border-radius:10px; background:var(--navy-900); color:#fff; font-weight:600; cursor:pointer;}
+  .approved-row{display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .approved-row:last-child{border-bottom:none;}
+  .tag{font-size:11px; font-weight:700; padding:3px 8px; border-radius:100px; background:var(--paper-2); color:var(--ink-soft); text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<div id="login-view" class="admin-wrap">
+  <div class="login-card">
+    <h1>Administração de depoimentos</h1>
+    <input type="password" id="password-input" placeholder="Senha de administrador">
+    <button id="login-btn" type="button">Entrar</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<div id="admin-view" class="admin-wrap" style="display:none;">
+  <div class="admin-header">
+    <img src="mais-valor-horizontal.png" alt="Mais Valor Capital">
+    <a href="index.html" style="font-size:13px; color:var(--ink-soft);">← Voltar para o site</a>
+  </div>
+
+  <div class="admin-section">
+    <h2>Depoimentos pendentes de revisão</h2>
+    <div id="pending-list"><div class="empty">Carregando...</div></div>
+  </div>
+
+  <div class="admin-section">
+    <h2>Adicionar depoimento em vídeo (YouTube)</h2>
+    <div class="add-video-form">
+      <input type="text" id="video-name" placeholder="Nome a exibir (ex: Cliente, ou o nome real)">
+      <input type="text" id="video-label" placeholder="Legenda (ex: Financiamento residencial)">
+      <input type="text" id="video-id" placeholder="ID do vídeo no YouTube (ex: jkVUSZ6rhc4)" style="grid-column:1 / -1;">
+      <button id="add-video-btn" type="button">Adicionar vídeo</button>
+    </div>
+    <div id="video-msg" style="font-size:13px; margin-top:10px;"></div>
+  </div>
+
+  <div class="admin-section">
+    <h2>Já publicados</h2>
+    <div id="approved-list"><div class="empty">Carregando...</div></div>
+  </div>
+</div>
+
+<script>
+var ADMIN_PASSWORD_KEY = 'mvc_admin_pw';
+
+function esc(str){
+  return (str || '').toString().replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function getPassword(){ return sessionStorage.getItem(ADMIN_PASSWORD_KEY) || ''; }
+
+function apiCall(method, body){
+  return fetch('/api/admin/testimonials', {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-admin-password': getPassword()
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+}
+
+function loadLists(){
+  apiCall('GET').then(function(r){
+    if (r.status === 401){ showLogin('Senha incorreta.'); return Promise.reject(); }
+    return r.json();
+  }).then(function(data){
+    if (!data) return;
+    renderPending(data.testimonials.filter(function(t){ return t.status === 'pending'; }));
+    renderApproved(data.testimonials.filter(function(t){ return t.status === 'approved'; }));
+  }).catch(function(){});
+}
+
+function renderPending(items){
+  var el = document.getElementById('pending-list');
+  if (!items.length){ el.innerHTML = '<div class="empty">Nenhum depoimento pendente no momento.</div>'; return; }
+  el.innerHTML = items.map(function(item){
+    var avatar = item.avatar_url
+      ? '<img class="avatar" src="' + esc(item.avatar_url) + '" alt="">'
+      : '<div class="avatar-ph"></div>';
+    return '<div class="pending-item" data-id="' + esc(item.id) + '">' + avatar +
+      '<div class="body">' +
+        '<div class="meta">' + new Date(item.created_at).toLocaleString('pt-BR') + '</div>' +
+        '<div class="name">' + esc(item.name) + '</div>' +
+        '<div class="text">' + esc(item.text_content || '') + '</div>' +
+        '<div class="actions">' +
+          '<button class="btn-approve" data-action="approve">Aprovar</button>' +
+          '<button class="btn-reject" data-action="reject">Rejeitar</button>' +
+        '</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function renderApproved(items){
+  var el = document.getElementById('approved-list');
+  if (!items.length){ el.innerHTML = '<div class="empty">Nada publicado ainda.</div>'; return; }
+  el.innerHTML = items.map(function(item){
+    return '<div class="approved-row" data-id="' + esc(item.id) + '">' +
+      '<span><span class="tag">' + (item.type === 'video' ? 'Vídeo' : 'Texto') + '</span>&nbsp;&nbsp;' + esc(item.name) + (item.label ? ' — ' + esc(item.label) : '') + '</span>' +
+      '<button class="btn-delete" data-action="delete" style="border:none; background:none; cursor:pointer; font-size:13px;">Remover</button>' +
+    '</div>';
+  }).join('');
+}
+
+document.getElementById('pending-list').addEventListener('click', function(e){
+  var btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  var id = btn.closest('.pending-item').dataset.id;
+  apiCall('POST', { action: btn.dataset.action, id: id }).then(loadLists);
+});
+
+document.getElementById('approved-list').addEventListener('click', function(e){
+  var btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  var id = btn.closest('.approved-row').dataset.id;
+  if (!confirm('Remover este depoimento publicado?')) return;
+  apiCall('POST', { action: 'delete', id: id }).then(loadLists);
+});
+
+document.getElementById('add-video-btn').addEventListener('click', function(){
+  var name = document.getElementById('video-name').value.trim();
+  var label = document.getElementById('video-label').value.trim();
+  var youtubeId = document.getElementById('video-id').value.trim();
+  var msg = document.getElementById('video-msg');
+  if (!name || !youtubeId){
+    msg.textContent = 'Preencha ao menos o nome e o ID do vídeo.';
+    msg.style.color = '#B4232B';
+    return;
+  }
+  apiCall('POST', { action: 'add_video', name: name, label: label, youtube_id: youtubeId }).then(function(r){
+    if (!r.ok) return Promise.reject();
+    msg.textContent = 'Vídeo adicionado!';
+    msg.style.color = '#1B8F5A';
+    document.getElementById('video-name').value = '';
+    document.getElementById('video-label').value = '';
+    document.getElementById('video-id').value = '';
+    loadLists();
+  }).catch(function(){
+    msg.textContent = 'Não foi possível adicionar. Confira o ID do vídeo.';
+    msg.style.color = '#B4232B';
+  });
+});
+
+function showLogin(errText){
+  sessionStorage.removeItem(ADMIN_PASSWORD_KEY);
+  document.getElementById('admin-view').style.display = 'none';
+  document.getElementById('login-view').style.display = 'block';
+  document.getElementById('login-err').textContent = errText || '';
+}
+
+function tryLogin(){
+  var pw = document.getElementById('password-input').value;
+  sessionStorage.setItem(ADMIN_PASSWORD_KEY, pw);
+  apiCall('GET').then(function(r){
+    if (r.status === 401){ showLogin('Senha incorreta.'); return; }
+    document.getElementById('login-view').style.display = 'none';
+    document.getElementById('admin-view').style.display = 'block';
+    loadLists();
+  }).catch(function(){ showLogin('Não foi possível conectar. Tente de novo.'); });
+}
+
+document.getElementById('login-btn').addEventListener('click', tryLogin);
+document.getElementById('password-input').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') tryLogin();
+});
+
+if (getPassword()){ tryLogin(); }
+</script>
+</body>
+</html>

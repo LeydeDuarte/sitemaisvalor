@@ -1,0 +1,9 @@
+{
+  "name": "site-mais-valor-capital",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "jose": "^5.9.6"
+  }
+}
