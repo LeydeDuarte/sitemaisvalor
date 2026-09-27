@@ -237,7 +237,9 @@
   .t-info{padding:14px 16px;}
   .t-info .name{font-weight:600; font-size:14.5px; display:block;}
   .t-info .op{font-size:12.5px; color:var(--ink-soft);}
+  .t-info .t-date, .t-info-written .t-date{font-size:11.5px; color:var(--ink-faint); font-weight:400;}
   .t-written{padding:22px; display:flex; flex-direction:column; justify-content:space-between; min-height:200px;}
+  .t-op-top{display:inline-block; font-size:11.5px; font-weight:700; color:var(--navy-700); background:var(--blue-100); padding:5px 11px; border-radius:100px; margin-bottom:12px; align-self:flex-start;}
   .t-quote{font-size:14.5px; color:var(--ink); line-height:1.6; flex:1;}
   .t-info-written{padding:0; margin-top:16px; display:flex; align-items:center; gap:10px;}
   .t-avatar{width:38px; height:38px; border-radius:50%; object-fit:cover; flex-shrink:0;}

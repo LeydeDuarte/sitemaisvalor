@@ -203,6 +203,74 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<section class="section" id="depoimentos">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>O que dizem nossos clientes</h2>
+      <p>Experiências de quem já conquistou seu crédito com a Mais Valor Capital.</p>
+    </div>
+    <div class="testimonial-grid" id="home-testimonial-grid">
+      <!-- Preenchido via JS a partir de /api/testimonials assim que houver depoimentos aprovados -->
+      <div class="empty-state" style="grid-column:1 / -1;">Em breve, depoimentos de clientes por aqui.</div>
+    </div>
+    <div style="text-align:center; margin-top:28px;">
+      <a href="depoimentos.html" class="btn-outline">Ver todos os depoimentos e deixar o seu →</a>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var grid = document.getElementById('home-testimonial-grid');
+  if (!grid) return;
+  var items = [];
+  var pos = 0;
+
+  function esc(str){
+    return (str || '').toString().replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function formatDate(iso){
+    try { return new Date(iso).toLocaleDateString('pt-BR'); } catch(e){ return ''; }
+  }
+
+  function cardHTML(item){
+    var dateStr = formatDate(item.created_at);
+    if (item.type === 'video'){
+      return '<div class="t-card"><div class="t-video"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(item.youtube_id) + '" title="Depoimento em vídeo" allowfullscreen loading="lazy"></iframe></div>' +
+        '<div class="t-info"><span class="name">' + esc(item.name) + (dateStr ? ' <span class="t-date">' + dateStr + '</span>' : '') + '</span><span class="op">' + esc(item.label || '') + '</span></div></div>';
+    }
+    var avatar = item.avatar_url
+      ? '<img src="' + esc(item.avatar_url) + '" alt="" class="t-avatar">'
+      : '<div class="t-avatar t-avatar-placeholder"></div>';
+    return '<div class="t-card t-written">' +
+      (item.label ? '<span class="t-op-top">' + esc(item.label) + '</span>' : '') +
+      '<div class="t-quote">\u201c' + esc(item.text_content || '') + '\u201d</div>' +
+      '<div class="t-info t-info-written">' + avatar + '<div><span class="name">' + esc(item.name) + (dateStr ? ' <span class="t-date">' + dateStr + '</span>' : '') + '</span></div></div></div>';
+  }
+
+  function render(){
+    if (!items.length) return;
+    var shown = [];
+    for (var i = 0; i < Math.min(3, items.length); i++){
+      shown.push(items[(pos + i) % items.length]);
+    }
+    grid.innerHTML = shown.map(cardHTML).join('');
+  }
+
+  fetch('/api/testimonials').then(function(r){ return r.ok ? r.json() : Promise.reject(); }).then(function(data){
+    if (data && Array.isArray(data.testimonials) && data.testimonials.length){
+      items = data.testimonials;
+      render();
+      if (items.length > 3){
+        setInterval(function(){ pos = (pos + 3) % items.length; render(); }, 7000);
+      }
+    }
+  }).catch(function(){ /* mantém os cards de reserva já no HTML */ });
+})();
+</script>
+
 <section class="explainer" id="diferenca">
   <div class="wrap">
     <div class="explainer-head">
@@ -554,67 +622,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<section class="section" id="depoimentos">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>O que dizem nossos clientes</h2>
-      <p>Experiências de quem já conquistou seu crédito com a Mais Valor Capital.</p>
-    </div>
-    <div class="testimonial-grid" id="home-testimonial-grid">
-      <!-- Preenchido via JS a partir de /api/testimonials assim que houver depoimentos aprovados -->
-      <div class="empty-state" style="grid-column:1 / -1;">Em breve, depoimentos de clientes por aqui.</div>
-    </div>
-    <div style="text-align:center; margin-top:28px;">
-      <a href="depoimentos.html" class="btn-outline">Ver todos os depoimentos e deixar o seu →</a>
-    </div>
-  </div>
-</section>
-<script>
-(function(){
-  var grid = document.getElementById('home-testimonial-grid');
-  if (!grid) return;
-  var items = [];
-  var pos = 0;
-
-  function esc(str){
-    return (str || '').toString().replace(/[&<>"']/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-    });
-  }
-
-  function cardHTML(item){
-    if (item.type === 'video'){
-      return '<div class="t-card"><div class="t-video"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(item.youtube_id) + '" title="Depoimento em vídeo" allowfullscreen loading="lazy"></iframe></div>' +
-        '<div class="t-info"><span class="name">' + esc(item.name) + '</span><span class="op">' + esc(item.label || '') + '</span></div></div>';
-    }
-    var avatar = item.avatar_url
-      ? '<img src="' + esc(item.avatar_url) + '" alt="" class="t-avatar">'
-      : '<div class="t-avatar t-avatar-placeholder"></div>';
-    return '<div class="t-card t-written"><div class="t-quote">\u201c' + esc(item.text_content || '') + '\u201d</div>' +
-      '<div class="t-info t-info-written">' + avatar + '<div><span class="name">' + esc(item.name) + '</span>' +
-      (item.label ? '<span class="op">' + esc(item.label) + '</span>' : '') + '</div></div></div>';
-  }
-
-  function render(){
-    if (!items.length) return;
-    var shown = [];
-    for (var i = 0; i < Math.min(3, items.length); i++){
-      shown.push(items[(pos + i) % items.length]);
-    }
-    grid.innerHTML = shown.map(cardHTML).join('');
-  }
-
-  fetch('/api/testimonials').then(function(r){ return r.ok ? r.json() : Promise.reject(); }).then(function(data){
-    if (data && Array.isArray(data.testimonials) && data.testimonials.length){
-      items = data.testimonials;
-      render();
-      if (items.length > 3){
-        setInterval(function(){ pos = (pos + 3) % items.length; render(); }, 7000);
-      }
-    }
-  }).catch(function(){ /* mantém os cards de reserva já no HTML */ });
-})();
-</script>
 
 <section class="section" id="contato">
   <div class="wrap">

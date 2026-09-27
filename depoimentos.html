@@ -101,6 +101,7 @@
         </div>
         <label style="display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:6px; text-align:left;">Qual produto você contratou?</label>
         <select id="testimonial-service" style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-family:'Inter'; font-size:14.5px; background:var(--paper); margin-bottom:14px;">
+          <option value="" selected disabled>Selecione o produto</option>
           <option value="Contratei um Financiamento Imobiliário (FI)">Contratei um Financiamento Imobiliário (FI)</option>
           <option value="Contratei um Home Equity (CGI)">Contratei um Home Equity (CGI)</option>
         </select>
@@ -173,17 +174,23 @@ function esc(str){
   });
 }
 
+function formatDate(iso){
+  try { return new Date(iso).toLocaleDateString('pt-BR'); } catch(e){ return ''; }
+}
+
 function cardHTML(item){
+  var dateStr = formatDate(item.created_at);
   if (item.type === 'video'){
     return '<div class="t-card"><div class="t-video"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(item.youtube_id) + '" title="Depoimento em vídeo" allowfullscreen loading="lazy"></iframe></div>' +
-      '<div class="t-info"><span class="name">' + esc(item.name) + '</span><span class="op">' + esc(item.label || '') + '</span></div></div>';
+      '<div class="t-info"><span class="name">' + esc(item.name) + (dateStr ? ' <span class="t-date">' + dateStr + '</span>' : '') + '</span><span class="op">' + esc(item.label || '') + '</span></div></div>';
   }
   var avatar = item.avatar_url
     ? '<img src="' + esc(item.avatar_url) + '" alt="" class="t-avatar">'
     : '<div class="t-avatar t-avatar-placeholder"></div>';
-  return '<div class="t-card t-written"><div class="t-quote">\u201c' + esc(item.text_content || '') + '\u201d</div>' +
-    '<div class="t-info t-info-written">' + avatar + '<div><span class="name">' + esc(item.name) + '</span>' +
-    (item.label ? '<span class="op">' + esc(item.label) + '</span>' : '') + '</div></div></div>';
+  return '<div class="t-card t-written">' +
+    (item.label ? '<span class="t-op-top">' + esc(item.label) + '</span>' : '') +
+    '<div class="t-quote">\u201c' + esc(item.text_content || '') + '\u201d</div>' +
+    '<div class="t-info t-info-written">' + avatar + '<div><span class="name">' + esc(item.name) + (dateStr ? ' <span class="t-date">' + dateStr + '</span>' : '') + '</span></div></div></div>';
 }
 
 fetch('/api/testimonials').then(function(r){ return r.ok ? r.json() : Promise.reject(); }).then(function(data){
@@ -224,11 +231,17 @@ function handleGoogleCredential(response){
 document.getElementById('submit-testimonial-btn').addEventListener('click', function(){
   var msg = document.getElementById('form-msg');
   var text = document.getElementById('testimonial-text').value.trim();
+  var service = document.getElementById('testimonial-service').value;
   msg.textContent = '';
   msg.className = 'form-msg';
 
   if (!currentCredential){
     msg.textContent = 'Entre com sua conta do Google primeiro.';
+    msg.className = 'form-msg err';
+    return;
+  }
+  if (!service){
+    msg.textContent = 'Selecione qual produto você contratou antes de enviar.';
     msg.className = 'form-msg err';
     return;
   }
@@ -250,6 +263,7 @@ document.getElementById('submit-testimonial-btn').addEventListener('click', func
     msg.textContent = 'Obrigado! Seu depoimento foi enviado e vai aparecer aqui assim que for revisado.';
     msg.className = 'form-msg ok';
     document.getElementById('testimonial-text').value = '';
+    document.getElementById('testimonial-service').value = '';
     btn.textContent = 'Enviar depoimento';
     btn.disabled = false;
 
