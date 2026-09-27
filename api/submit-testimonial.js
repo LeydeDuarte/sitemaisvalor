@@ -18,6 +18,11 @@ module.exports = async (req, res) => {
     const body = req.body || {};
     const credential = body.credential;
     const text = typeof body.text === 'string' ? body.text.trim() : '';
+    const allowedLabels = [
+      'Contratei um Financiamento Imobiliário (FI)',
+      'Contratei um Home Equity (CGI)'
+    ];
+    const label = allowedLabels.includes(body.label) ? body.label : null;
 
     if (!credential || !text) {
       res.status(400).json({ error: 'missing_fields' });
@@ -44,13 +49,14 @@ module.exports = async (req, res) => {
 
     const sql = neon(process.env.DATABASE_URL);
     await sql`
-      INSERT INTO testimonials (type, google_sub, name, avatar_url, text_content, status)
-      VALUES ('written', ${sub}, ${name}, ${picture}, ${trimmedText}, 'pending')
+      INSERT INTO testimonials (type, google_sub, name, avatar_url, text_content, label, status)
+      VALUES ('written', ${sub}, ${name}, ${picture}, ${trimmedText}, ${label}, 'pending')
       ON CONFLICT (google_sub)
       DO UPDATE SET
         name = EXCLUDED.name,
         avatar_url = EXCLUDED.avatar_url,
         text_content = EXCLUDED.text_content,
+        label = EXCLUDED.label,
         status = 'pending',
         created_at = now()
     `;
