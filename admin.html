@@ -123,7 +123,7 @@ function renderPending(items){
     return '<div class="pending-item" data-id="' + esc(item.id) + '">' + avatar +
       '<div class="body">' +
         '<div class="meta">' + new Date(item.created_at).toLocaleString('pt-BR') + '</div>' +
-        '<div class="name">' + esc(item.name) + '</div>' +
+        '<div class="name">' + esc(item.name) + (item.label ? ' <span class="tag" style="text-transform:none; font-weight:600; margin-left:6px;">' + esc(item.label) + '</span>' : '') + '</div>' +
         '<div class="text">' + esc(item.text_content || '') + '</div>' +
         '<div class="actions">' +
           '<button class="btn-approve" data-action="approve">Aprovar</button>' +

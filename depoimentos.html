@@ -99,6 +99,11 @@
             <span class="e">Depoimento será publicado após revisão</span>
           </div>
         </div>
+        <label style="display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:6px; text-align:left;">Qual produto você contratou?</label>
+        <select id="testimonial-service" style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-family:'Inter'; font-size:14.5px; background:var(--paper); margin-bottom:14px;">
+          <option value="Contratei um Financiamento Imobiliário (FI)">Contratei um Financiamento Imobiliário (FI)</option>
+          <option value="Contratei um Home Equity (CGI)">Contratei um Home Equity (CGI)</option>
+        </select>
         <textarea id="testimonial-text" placeholder="Conte como foi sua experiência com a Mais Valor Capital..." maxlength="2000"></textarea>
         <button class="btn-block" id="submit-testimonial-btn" type="button" style="background:var(--navy-900); margin-top:14px;">Enviar depoimento</button>
         <div id="form-msg" class="form-msg"></div>
@@ -240,7 +245,7 @@ document.getElementById('submit-testimonial-btn').addEventListener('click', func
   fetch('/api/submit-testimonial', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ credential: currentCredential, text: text })
+    body: JSON.stringify({ credential: currentCredential, text: text, label: document.getElementById('testimonial-service').value })
   }).then(function(r){ return r.ok ? r.json() : Promise.reject(); }).then(function(){
     msg.textContent = 'Obrigado! Seu depoimento foi enviado e vai aparecer aqui assim que for revisado.';
     msg.className = 'form-msg ok';
