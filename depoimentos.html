@@ -15,9 +15,9 @@
   .testimonials-hero p{color:var(--ink-soft); font-size:15.5px; max-width:600px;}
   .all-testimonial-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
   .empty-state{color:var(--ink-soft); font-size:14.5px; padding:40px 0; text-align:center;}
-  .write-card{background:var(--white); border:1px solid var(--line); border-radius:22px; padding:40px; max-width:560px; margin:0 auto;}
-  .write-card h2{font-size:22px; font-weight:700; margin-bottom:8px; text-align:center;}
-  .write-card > p{color:var(--ink-soft); font-size:14.5px; text-align:center; margin-bottom:24px;}
+  .write-card{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:26px 28px; max-width:440px; margin:0 auto;}
+  .write-card h2{font-size:18px; font-weight:700; margin-bottom:6px; text-align:center;}
+  .write-card > p{color:var(--ink-soft); font-size:13.5px; text-align:center; margin-bottom:16px;}
   .gsi-wrap{display:flex; justify-content:center; margin-bottom:8px;}
   .signed-in-box{display:none;}
   .signed-in-profile{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
@@ -25,14 +25,14 @@
   .signed-in-profile .who{font-size:14px;}
   .signed-in-profile .who .n{font-weight:600; display:block;}
   .signed-in-profile .who .e{color:var(--ink-faint); font-size:12.5px;}
-  .write-card textarea{width:100%; min-height:120px; padding:14px; border:1px solid var(--line); border-radius:12px; font-family:'Inter'; font-size:14.5px; resize:vertical; background:var(--paper);}
+  .write-card textarea{width:100%; min-height:90px; padding:14px; border:1px solid var(--line); border-radius:12px; font-family:'Inter'; font-size:14.5px; resize:vertical; background:var(--paper);}
   .write-card textarea:focus{outline:2px solid var(--blue-500); outline-offset:1px;}
   .form-msg{font-size:13.5px; margin-top:12px; text-align:center;}
   .form-msg.ok{color:var(--ok, #1B8F5A);}
   .form-msg.err{color:#B4232B;}
   @media (max-width:860px){
     .all-testimonial-grid{grid-template-columns:1fr;}
-    .write-card{padding:26px 20px;}
+    .write-card{padding:20px 18px;}
   }
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -64,23 +64,15 @@
 <section class="testimonials-hero">
   <div class="wrap">
     <h1>Depoimentos de clientes</h1>
-    <p>Experiências reais de quem já fez financiamento imobiliário ou CGI / Home Equity com a Mais Valor Capital. Deixe também o seu depoimento no final da página.</p>
+    <p>Experiências reais de quem já fez financiamento imobiliário ou CGI / Home Equity com a Mais Valor Capital.</p>
   </div>
 </section>
 
-<section class="section" style="padding-top:24px;">
-  <div class="wrap">
-    <div id="all-testimonials-grid" class="all-testimonial-grid">
-      <div class="empty-state">Carregando depoimentos...</div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0;">
+<section class="section" style="padding-top:8px; padding-bottom:24px;">
   <div class="wrap">
     <div class="write-card">
       <h2>Deixe o seu depoimento</h2>
-      <p>Entre com sua conta do Google para confirmar quem você é. Seu nome e sua foto de perfil aparecem no depoimento; seu e-mail nunca é exibido.</p>
+      <p>Entre com sua conta do Google para confirmar quem você é.</p>
 
       <div id="signed-out-box">
         <div class="gsi-wrap">
@@ -111,6 +103,14 @@
         <button class="btn-block" id="submit-testimonial-btn" type="button" style="background:var(--navy-900); margin-top:14px;">Enviar depoimento</button>
         <div id="form-msg" class="form-msg"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:8px;">
+  <div class="wrap">
+    <div id="all-testimonials-grid" class="all-testimonial-grid">
+      <div class="empty-state">Carregando depoimentos...</div>
     </div>
   </div>
 </section>
