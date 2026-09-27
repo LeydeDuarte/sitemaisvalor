@@ -106,8 +106,8 @@
         </select>
         <textarea id="testimonial-text" placeholder="Conte como foi sua experiência com a Mais Valor Capital..." maxlength="2000"></textarea>
         <button class="btn-block" id="submit-testimonial-btn" type="button" style="background:var(--navy-900); margin-top:14px;">Enviar depoimento</button>
-        <div id="form-msg" class="form-msg"></div>
       </div>
+      <div id="form-msg" class="form-msg"></div>
     </div>
   </div>
 </section>
@@ -250,7 +250,16 @@ document.getElementById('submit-testimonial-btn').addEventListener('click', func
     msg.textContent = 'Obrigado! Seu depoimento foi enviado e vai aparecer aqui assim que for revisado.';
     msg.className = 'form-msg ok';
     document.getElementById('testimonial-text').value = '';
-    btn.textContent = 'Enviado ✓';
+    btn.textContent = 'Enviar depoimento';
+    btn.disabled = false;
+
+    // Desloga a pessoa da conta Google nesta página após o envio.
+    currentCredential = null;
+    document.getElementById('signed-in-box').style.display = 'none';
+    document.getElementById('signed-out-box').style.display = 'block';
+    if (window.google && google.accounts && google.accounts.id){
+      google.accounts.id.disableAutoSelect();
+    }
   }).catch(function(){
     msg.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
     msg.className = 'form-msg err';
